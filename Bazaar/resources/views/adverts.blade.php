@@ -8,20 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="font-bold text-x1"><b>Adverts</b></h1>
-                    <p>Here are all the adverts</p>
-                    <p>Click on an advert to view it</p>
-                </div>
+                <x-filter-bar></x-filter-bar>   
             </div>
             <div class="grid md:grid-cols-2 gap-6">
                 @foreach ($adverts as $advert)
-                    @if(Auth::id() != null && $advert->user->user_id == Auth::id())
-                        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                        </div>
-                    @endif
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                        <div class="p-6">
+                        <div class="p-6 dark:text-gray-100">
                             <a href="{{ route('adverts.show', $advert->id) }}">
                                 <h1 class="font-bold text-x1"><b>{{ $advert->title }}</b></h1>
                                 <p>{{ $advert->advertisement_text }}</p>
