@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 // falback route
 Route::get('/advert/{advert}', [AdvertController::class, 'index'])->name('advert')->fallback('adverts');
-Route::get('/adverts', [AdvertController::class, 'overview'])->;
+Route::get('/adverts', [AdvertController::class, 'overview']);
 Route::get('/adverts/create', [AdvertController::class, 'create'])->name('adverts.create');	
 Route::post('/adverts', [AdvertController::class, 'store'])->name('adverts.store');
 
