@@ -1,6 +1,29 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? Tough luck! send us an email and we might be able to help you!') }}
+        {{ __('In the digital realm where secrets dwell,
+        Lies a tale that many tell.
+        A saga of loss, a password plight,
+        Where access fades into the night.
+        
+        "Out of luck," the screens declare,
+        With empty fields and a despairing stare.
+        "Try again," they seem to mock,
+        As the clock ticks and tocks, in a relentless lock.
+        
+        Where once was joy, now frustration looms,
+        In the glow of screens in darkened rooms.
+        "Bad news, login blues," we sigh and moan,
+        In the quest to reclaim what was once our own.
+        
+        But fear not, for hope\'s not lost,
+        Despite the time and patience cost.
+        For every "Fate\'s sour, lost the power,"
+        There\'s a reset link to restore the tower.
+        
+        So here\'s to passwords, long and strong,
+        To keep our digital worlds from going wrong.
+        May they stay remembered, clear and bright,
+        Guiding us through the login night.!') }}
     </div>
 
     <!-- Session Status -->
