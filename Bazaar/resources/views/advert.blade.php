@@ -10,8 +10,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="font-bold text-x1"><b>{{ $advert->title }}</b></h1>
                     <p>{{ $advert->advertisement_text }}</p>
-                    <p>Price: {{ $advert->price }}</p>
-                    <p>Posted by: {{ $advert->user->name }}</p>
+                    <p>{{__('price')}}: {{ $advert->price }}</p>
+                    <p>{{__('Posted by')}}: {{ $advert->user->name }}</p>
+                    <p>{{__('Current bid')}}: {{ $advert->bid }}</p>
                 </div>
             </div>
         </div>

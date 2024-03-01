@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Advert;
+
 class NewAdvertController extends Controller
 {
     /**
@@ -31,12 +32,27 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'advertisement_text' => 'required|string',
+            'price' => 'required|numeric',
+            'advert_type' => 'required',
+        ]);
+
         $advert = new Advert();
         $advert->user_id = auth()->id();
-        $advert->title = request('title');
-        $advert->advertisement_text = request('advertisement_text');
-        $advert->price = request('price');
+        $advert->title = $validatedData['title'];
+        $advert->advertisement_text = $validatedData['advertisement_text'];
+        $advert->price = $validatedData['price'];
+        $advert->expires_at = $validatedData['expires_at'];
+
+        if ($validatedData['advert_type'] == 'auction') {
+            $advert->bid = 0.00;
+        }
+
         $advert->save();
+
+        return redirect()->route('adverts.index');
     }
 
     /**
@@ -45,7 +61,8 @@ class NewAdvertController extends Controller
     public function show(string $id)
     {
         $advert = Advert::findOrFail($id);
-           $advert->load('user');
+        $advert->load('user');
+
         return view('advert', [
             'advert' => $advert,
         ]);
@@ -64,7 +81,17 @@ class NewAdvertController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+    }
+
+    public function bid(Request $request, string $id)
+    {
+        $advert = Advert::findOrFail($id);
+        $advert->bid = request('bid');
+        $advert->bidder_id = auth()->id();
+        $advert->save();
+
+        return redirect()->route('adverts.show', ['id' => $id]);
     }
 
     /**
@@ -72,6 +99,9 @@ class NewAdvertController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+            $advert = Advert::findOrFail($id);
+            if(auth()->id() === $advert->user_id) {
+                $advert->delete();
+            }
     }
 }
