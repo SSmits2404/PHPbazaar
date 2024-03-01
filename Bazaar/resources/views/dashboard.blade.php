@@ -15,24 +15,24 @@
             <!-- Grid of 2x2 boxes with fixed height -->
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                    <div class="p-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
                         Placeholder 1 <br>
                         placeholder 1 <br>
                         placeholder 1 <br> 
                     </div>
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                    <div class="p-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
                         Placeholder 2
                     </div>
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                    <div class="p-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
                         Placeholder 3
                     </div>
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
-                    <div class="p-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
                         Placeholder 4
                     </div>
                 </div>
