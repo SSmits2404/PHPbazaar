@@ -28,6 +28,12 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Sander Smitty',
                 'email' => 'sandersmits0404@gmail.com',
                 'password' => bcrypt('bazaar'),
+            ],
+            [
+                'id'=> 3,
+                'name'=> 'root',
+                'email'=> 'root@root.nl',
+                'password'=> bcrypt('root'),
             ]
         ]);
 
