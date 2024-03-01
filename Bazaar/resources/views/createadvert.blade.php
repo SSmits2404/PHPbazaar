@@ -8,7 +8,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="font-bold text-x1"><b>Create Advert</b></h1>
+                    <h1 class="font-bold text-x1"><b>{{__('Create Advert')}}</b></h1>
+                    
                     <form action="{{ route('adverts.store') }}" method="post">
                         @csrf
                         <div class="mb-4">
@@ -38,7 +39,35 @@
                                 </div>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold mb-2" for="expiry_moment">
+                                Expiry Moment
+                            </label>
+                            <div class="flex">
+                                <input type="datetime-local" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-1 p-4 rounded-lg" name="expiry_moment" id="expiry_moment">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="advert_type">
+                                Advert Type
+                            </label>
+                            <div class="flex">
+                                <label class="inline-flex items-center mr-2">
+                                    <input type="radio" class="form-radio" name="advert_type" id="advert_type" value="insta_sell">
+                                    <span class="ml-2">Insta Sell</span>
+                                </label>
+                                <label class="inline-flex items-center mr-4">
+                                    <input type="radio" class="form-radio" name="advert_type" id="advert_type" value="auction">
+                                    <span class="ml-2">Auction</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio" name="advert_type" id="advert_type" value="rental">
+                                    <span class="ml-2">Rental</span>
+                                </label>
+                            </div>
+                        </div>
+                        
                             <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">Create Advert</button>
 
 </x-app-layout>

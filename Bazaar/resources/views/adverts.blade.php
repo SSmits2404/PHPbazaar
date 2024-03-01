@@ -17,8 +17,8 @@
                             <a href="{{ route('adverts.show', $advert->id) }}">
                                 <h1 class="font-bold text-x1"><b>{{ $advert->title }}</b></h1>
                                 <p>{{ $advert->advertisement_text }}</p>
-                                <p>Price: {{ $advert->price }}</p>
-                                <p>Posted by: {{ $advert->user->name }}</p>
+                                <p>{{__('price')}}: {{ $advert->price }}</p>
+                                <p>{{__('Posted by')}}: {{ $advert->user->name }}</p>
                             </a>
                         </div>
                     </div>
