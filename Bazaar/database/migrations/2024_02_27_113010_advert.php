@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('title'); // Column for the advert title
             $table->text('advertisement_text'); // Column for the advertisement text
             $table->timestamps(); // Adds created_at and updated_at columns
-        
+            $table->dateTime('expires_at')->nullable(); // Nullable column for the expiration date of the advert
+            $table->float('bid', 10, 2)->nullable(); // Nullable column for the latitude of the advert
+            $table->unsignedBigInteger('bidder_id')->nullable(); // Nullable column for the bidder's ID
             // Foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('bidder_id')->references('id')->on('users');
         });
     }
 
