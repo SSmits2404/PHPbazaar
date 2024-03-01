@@ -19,6 +19,7 @@
                                 <p>{{ $advert->advertisement_text }}</p>
                                 <p>Price: {{ $advert->price }}</p>
                                 <p>Posted by: {{ $advert->user->name }}</p>
+                                <x-secondary-button>favorite</x-secondary-button>
                             </a>
                         </div>
                     </div>
