@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Insert users first
+        DB::table("users")->insert([
+            [
+                'id' => 1,
+                'name' => 'Sander Smits',
+                'email' => 'sandersmits1234@gmail.com',
+                'password' => bcrypt('bazaar'),
+            ],
+            [
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+                'id' => 2,
+                'name' => 'Sander Smitty',
+                'email' => 'sandersmits0404@gmail.com',
+                'password' => bcrypt('bazaar'),
+            ]
+        ]);
+
+        // Then insert adverts
+        DB::table('adverts')->insert([
+            [
+                'id' => 1,
+                'user_id' => 1,
+                'price' => 8.00,
+                'title' => 'broodje',
+                'advertisement_text' => 'dit broodje is lekker',
+            ],
+            [
+                'id' => 2,
+                'user_id' => 2,
+                'price' => 12.00,
+                'title' => 'lekkerder broodje',
+                'advertisement_text' => 'deze broodje grote lekker',
+            ]
+        ]);
     }
+
 }
