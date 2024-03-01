@@ -37,6 +37,7 @@ class NewAdvertController extends Controller
             'advertisement_text' => 'required|string',
             'price' => 'required|numeric',
             'advert_type' => 'required',
+            'expires_at' => 'required|date',
         ]);
 
         $advert = new Advert();
@@ -60,9 +61,9 @@ class NewAdvertController extends Controller
      */
     public function show(string $id)
     {
+       
         $advert = Advert::findOrFail($id);
         $advert->load('user');
-
         return view('advert', [
             'advert' => $advert,
         ]);
@@ -87,11 +88,19 @@ class NewAdvertController extends Controller
     public function bid(Request $request, string $id)
     {
         $advert = Advert::findOrFail($id);
-        $advert->bid = request('bid');
+        $currentBid = $advert->bid;
+        $validatedData = $request->validate([
+            'bid' => 'required'
+        ]);
+
+        if($currentBid >= $validatedData['bid']) {
+            return back()->withErrors(['bid' => 'Bid must be higher than the current bid.']);
+        }
+        $advert->bid = $validatedData['bid'];
         $advert->bidder_id = auth()->id();
         $advert->save();
-
-        return redirect()->route('adverts.show', ['id' => $id]);
+        //return redirect()->route('adverts.show', ['id' => $id]);
+        return back();
     }
 
     /**

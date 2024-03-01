@@ -25,7 +25,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 // falback route
 
+Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::resource('/adverts', NewAdvertController::class)->middleware(['auth', 'verified']);
+
 
 
 Route::middleware('auth')->group(function () {

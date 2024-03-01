@@ -4,7 +4,7 @@
             {{ __('Advert') }}
         </h2>
     </x-slot>
-    <div class="py-12">
+    <br>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -12,8 +12,34 @@
                     <p>{{ $advert->advertisement_text }}</p>
                     <p>{{__('price')}}: {{ $advert->price }}</p>
                     <p>{{__('Posted by')}}: {{ $advert->user->name }}</p>
-                    <p>{{__('Current bid')}}: {{ $advert->bid }}</p>
+                    @if($advert->bid != null)
+                    <p>{{__('Current bid')}}: {{__('$')}}{{number_format($advert->bid, 2)}}</p>
+                    @endif
                 </div>
+            </div>
+            @if($advert->user_id != auth()->user()->id && $advert->bid != null)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <form action="{{ route('adverts.bid', $advert->id) }}" method="post">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="bid" class="sr-only">{{__('bid')}}</label>
+                            <input type="number" step=0.10 name="bid" id="bid" placeholder="{{__('bid')}}" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('bid') border-red-500 @enderror" value="{{ old('bid') }}">
+                            @error('bid')
+                                <div class="text-red-500 mt-2 text-sm">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('bid')}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @endif  
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900 dark:text-gray-100"> </div>
             </div>
         </div>
     </div>
