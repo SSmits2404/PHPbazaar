@@ -32,23 +32,15 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'advertisement_text' => 'required|string',
-            'price' => 'required|numeric',
-            'advert_type' => 'required',
-            'expires_at' => 'required|date',
-            'afbeelding' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // example validation for image upload
 
-        ]);
         $advert = new Advert();
         $advert->user_id = auth()->id();
-        $advert->title = $validatedData['title'];
-        $advert->advertisement_text = $validatedData['advertisement_text'];
-        $advert->price = $validatedData['price'];
-        $advert->expires_at = $validatedData['expires_at'];
+        $advert->title = $request['title'];
+        $advert->advertisement_text = $request['advertisement_text'];
+        $advert->price = $request['price'];
+        $advert->expires_at = $request['expires_at'];
 
-        if ($validatedData['advert_type'] == 'auction') {
+        if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
         }
 
@@ -120,5 +112,6 @@ class NewAdvertController extends Controller
             if(auth()->id() === $advert->user_id) {
                 $advert->delete();
             }
+            return redirect()->route('adverts.index');
     }
 }

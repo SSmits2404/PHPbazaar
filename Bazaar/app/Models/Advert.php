@@ -13,5 +13,5 @@ class Advert extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    protected $fillable = ['user_id', 'price','advertisement_text','title','expires_at','bid','bidder_id'];
+    protected $fillable = ['user_id', 'price','advertisement_text','title','expires_at','bid','bidder_id','advert_type' , 'afbeelding'];
 }
