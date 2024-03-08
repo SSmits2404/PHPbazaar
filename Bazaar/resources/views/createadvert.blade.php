@@ -72,7 +72,7 @@
                             Afbeelding
                             </label>
                             <div class="relative md:w-2/3 w-full">
-                                <input class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('image') border-red-500 @enderror" id="afbeelding" name="afbeelding" type="file">
+                                <input class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('afbeelding') border-red-500 @enderror" id="afbeelding" name="afbeelding" type="file">
                                 @error('afbeelding')
                                 <p class="text-red-500 text-sm absolute top-full left-0">{{ $message }}</p>
                                  @enderror

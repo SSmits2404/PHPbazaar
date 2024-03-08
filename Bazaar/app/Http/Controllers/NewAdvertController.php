@@ -38,6 +38,7 @@ class NewAdvertController extends Controller
             'price' => 'required|numeric',
             'advert_type' => 'required',
             'expires_at' => 'required|date',
+            'afbeelding' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // example validation for image upload
         ]);
 
         $advert = new Advert();
@@ -49,6 +50,13 @@ class NewAdvertController extends Controller
 
         if ($validatedData['advert_type'] == 'auction') {
             $advert->bid = 0.00;
+        }
+
+        if ($request->hasFile('afbeelding')) {
+            $image = $request->file('afbeelding');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $advert->afbeelding = $imageName;
         }
 
         $advert->save();
