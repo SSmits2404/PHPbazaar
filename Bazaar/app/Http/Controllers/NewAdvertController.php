@@ -39,8 +39,8 @@ class NewAdvertController extends Controller
             'advert_type' => 'required',
             'expires_at' => 'required|date',
             'afbeelding' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // example validation for image upload
-        ]);
 
+        ]);
         $advert = new Advert();
         $advert->user_id = auth()->id();
         $advert->title = $validatedData['title'];
