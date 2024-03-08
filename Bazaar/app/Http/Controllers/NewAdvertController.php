@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorites;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 
@@ -102,6 +103,32 @@ class NewAdvertController extends Controller
         //return redirect()->route('adverts.show', ['id' => $id]);
         return back();
     }
+
+    public function favorite(string $id)
+    {
+        $existingFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->first();
+        if ($existingFavorite) {
+            return back()->withErrors(['favorite' => 'This advert is already in your favorites.']);
+        }
+        $favorite = new Favorites();
+        $favorite->advert = $id;
+        $favorite->user = auth()->id();
+        $favorite->added = now();
+        $favorite->save();
+        return back();
+    }
+    public function unfavorite(string $id)
+    {
+        $favorite = Favorites::where('user', auth()->id())->where('advert', $id);
+                $favorite->delete();
+        return back();
+    }
+    public function isFavorite(string $id)
+{
+     $favorite = Favorites::where('user', auth()->id())->where('advert', $id);
+        return view($favorite);
+       
+}
 
     /**
      * Remove the specified resource from storage.
