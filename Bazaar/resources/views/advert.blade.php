@@ -27,6 +27,37 @@
                     <p>{{__('Current bid')}}: {{__('$')}}{{number_format($advert->bid, 2)}}</p>
                     @endif
                 </div>
+                <div class="mt-auto">
+
+                                @if($advert->user_id == auth()->user()->id)
+                                <a href="{{ route('adverts.destroy', $advert->id) }}" class ='inline-flex items-center px-4 py-2 bg-red-500 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-red-700 dark:hover:bg-red focus:bg-red-700 dark:focus:bg-red active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 transition ease-in-out duration-150'>
+                                    Delete
+                                </a>
+
+                                @endif
+                                /fix
+                                @if($advert->user_id != auth()->user()->id)
+                                
+                                @php
+                                    $isFavorite = auth()->user()->favorites->contains($advert->id);
+                                @endphp
+
+                                
+                                
+
+                                @if ($isFavorite)
+                                    <a href="{{ route('adverts.unfavorite', $advert->id) }}" class="inline-flex items-center px-4 py-2 bg-red-500 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-red-700 dark:hover:bg-red focus:bg-red-700 dark:focus:bg-red active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 transition ease-in-out duration-150">
+                                    unfavorite
+                                </a>
+                                @else
+                                    <a href="{{ route('adverts.favorite', $advert->id) }}" class="inline-flex items-center px-4 py-2 bg-red-500 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-red-700 dark:hover:bg-red focus:bg-red-700 dark:focus:bg-red active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 transition ease-in-out duration-150">
+                                    favorite
+                                    </a>
+                                @endif
+
+                                @endif
+                            </div>
+                                
             </div>
             @if($advert->user_id != auth()->user()->id && $advert->bid != null && $advert->expires_at > now())
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6" id="bidelement">

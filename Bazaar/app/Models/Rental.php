@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rental extends Model
 {
-    use HasFactory;
+    protected $table = 'Rental';
+    protected $primaryKey = 'id';
+    public function advert()
+    {
+        return $this->belongsTo(User::class, 'advert');
+    }
+    protected $fillable = ['user, advert, startdate, enddate'];
 }

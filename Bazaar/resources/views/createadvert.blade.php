@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="font-bold text-x1"><b>{{__('Create Advert')}}</b></h1>
                     
-                    <form action="{{ route('adverts.store') }}" method="post">
+                    <form action="{{ route('adverts.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <label for="title" class="sr-only">Title</label>
@@ -67,6 +67,18 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="md:flex gap-8 justify-between">
+                            <label class="block text-gray-700 text-xl font-bold mb-2" for="afbeelding">
+                            Afbeelding
+                            </label>
+                        <div class="relative md:w-2/3 w-full">
+                        <input class="shadow appearance-none border rounded md:w-full w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('afbeelding') border-red-500 @enderror" id="afbeelding" name="afbeelding" type="file">
+                        @error('afbeelding')
+                            <p class="text-red-500 text-sm absolute top-full left-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                        <br>
                         
                             <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">Create Advert</button>
 
