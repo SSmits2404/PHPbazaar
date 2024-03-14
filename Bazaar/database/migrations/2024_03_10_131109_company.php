@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('owner_id')->constrained('users');
             $table->string('custom_url')->nullable();
+            $table->boolean('api_enabled')->default(false);
             $table->timestamps();
         });
     }

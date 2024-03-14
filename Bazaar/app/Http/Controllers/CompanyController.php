@@ -12,12 +12,19 @@ class CompanyController extends Controller
         $company = Company::where('custom_url', $company)->first();
         if($company == null)
         {
-            return view('welcome');
+            return redirect('/');
         }
         else{
         return view('company', ['company' => $company]);
         }
     }
 
+    public function overview()
+    {
+        $companies = Company::all(); // Retrieve all companies from the Company model
 
+        return view('companies', [
+            'companies' => $companies,
+        ]);
+    }
 }
