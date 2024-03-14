@@ -104,6 +104,7 @@ class NewAdvertController extends Controller
         return back();
     }
 
+
     public function favorite(string $id)
     {
         $existingFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->first();
@@ -115,20 +116,20 @@ class NewAdvertController extends Controller
         $favorite->user = auth()->id();
         $favorite->added = now();
         $favorite->save();
-        return back();
+        return redirect()->route('adverts.show', $id);
     }
     public function unfavorite(string $id)
     {
         $favorite = Favorites::where('user', auth()->id())->where('advert', $id);
                 $favorite->delete();
-        return back();
+        return redirect()->route('adverts.show', $id);
     }
+    
     public function isFavorite(string $id)
-{
-     $favorite = Favorites::where('user', auth()->id())->where('advert', $id);
-        return view($favorite);
-       
-}
+    {
+         return $this->favorites()->where('advert', $id)->where('user', auth()->id())->exists();
+    }
+                        
 
     /**
      * Remove the specified resource from storage.
