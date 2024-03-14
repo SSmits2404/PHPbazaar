@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Advert;
 
@@ -12,11 +11,9 @@ class NewAdvertController extends Controller
      */
     public function index()
     {
-        $adverts = Advert::all(); // Retrieve all adverts from the Advert model
+           $adverts = Advert::with('user')->paginate(1); // Paginates the results, 10 per page
 
-        return view('adverts', [
-            'adverts' => $adverts,
-        ]);
+    return view('adverts', compact('adverts'));
     }
 
     /**
@@ -60,8 +57,7 @@ class NewAdvertController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-       
+    {  
         $advert = Advert::findOrFail($id);
         $advert->load('user');
         return view('advert', [

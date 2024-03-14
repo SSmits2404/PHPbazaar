@@ -19,7 +19,6 @@ class CompanyController extends Controller
         }
     }
 
-
     public function overview()
     {
         $companies = Company::all(); // Retrieve all companies from the Company model
@@ -28,5 +27,4 @@ class CompanyController extends Controller
             'companies' => $companies,
         ]);
     }
-
 }
