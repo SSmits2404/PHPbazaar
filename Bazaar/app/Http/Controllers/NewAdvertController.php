@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Favorites;
 use Illuminate\Http\Request;
 use App\Models\Advert;
@@ -13,11 +14,9 @@ class NewAdvertController extends Controller
      */
     public function index()
     {
-        $adverts = Advert::all(); // Retrieve all adverts from the Advert model
+           $adverts = Advert::with('user')->paginate(1); // Paginates the results, 10 per page
 
-        return view('adverts', [
-            'adverts' => $adverts,
-        ]);
+    return view('adverts', compact('adverts'));
     }
 
     /**
@@ -61,8 +60,7 @@ class NewAdvertController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-       
+    {  
         $advert = Advert::findOrFail($id);
         $advert->load('user');
         return view('advert', [
@@ -86,6 +84,15 @@ class NewAdvertController extends Controller
         
     }
 
+    public function currentbid(string $id)
+    {
+        $advert = Advert::find($id);
+        if($advert->bid == null) {
+            return response()->json(['error' => 'this advert is not an auction'], $status = 405);
+        }
+        return response()->json(['bid' => $advert->bid], 200);
+    }
+
     public function bid(Request $request, string $id)
     {
         $advert = Advert::findOrFail($id);
@@ -93,10 +100,13 @@ class NewAdvertController extends Controller
         $validatedData = $request->validate([
             'bid' => 'required'
         ]);
-
+        if($advert->expires_at < now()) {
+            return back()->withErrors(['bid' => 'This auction has expired.']);
+        }
         if($currentBid >= $validatedData['bid']) {
             return back()->withErrors(['bid' => 'Bid must be higher than the current bid.']);
         }
+     
         $advert->bid = $validatedData['bid'];
         $advert->bidder_id = auth()->id();
         $advert->save();
