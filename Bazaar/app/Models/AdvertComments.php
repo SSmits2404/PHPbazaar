@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserComments extends Model
+class AdvertComments extends Model
 {
     protected $table = 'AdvertComments';
     protected $primaryKey = 'id';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Advert;
+use App\Models\AdvertComments;
 
 class NewAdvertController extends Controller
 {
@@ -60,9 +61,39 @@ class NewAdvertController extends Controller
     {  
         $advert = Advert::findOrFail($id);
         $advert->load('user');
+        $rating= AdvertComments::where('advert', $id)->get()->average('review');
+        $ratingcount = AdvertComments::where('advert', $id)->get()->count();
+        $user_rating = AdvertComments::where('advert', $id)->where('reviewer', auth()->id())->get('review')->first();
         return view('advert', [
             'advert' => $advert,
+            'rating' => round($rating, 1),
+            'user_rating' => $user_rating->review,
+            'ratingcount' => $ratingcount
         ]);
+    }
+
+    public function rate(Request $request)
+    {
+        $validatedData = $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'advert_id' => 'required'
+        ]);
+
+        $existingComment = AdvertComments::where('advert', $validatedData['advert_id'])
+            ->where('reviewer', auth()->id())
+            ->first();
+
+        if ($existingComment) {
+            $existingComment->delete();
+        }
+
+        $comment = new AdvertComments();
+        $comment->reviewer = auth()->id();
+        $comment->advert = $validatedData['advert_id'];
+        $comment->review = $validatedData['rating'];
+        $comment->save();
+
+        return back();
     }
 
     /**

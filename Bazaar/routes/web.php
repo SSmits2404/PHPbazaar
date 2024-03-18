@@ -29,7 +29,7 @@ Route::get('/c/{company}', [CompanyController::class, 'index'])->middleware(['au
 Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@generatePDF');
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::resource('/adverts', NewAdvertController::class)->middleware(['auth', 'verified']);
-
+Route::post('/adverts/rate', [NewAdvertController::class, 'rate'])->name('adverts.rate')->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
