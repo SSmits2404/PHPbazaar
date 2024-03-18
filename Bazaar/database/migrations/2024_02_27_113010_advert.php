@@ -21,9 +21,11 @@ return new class extends Migration
             $table->dateTime('expires_at')->nullable(); // Nullable column for the expiration date of the advert
             $table->float('bid', 10, 2)->nullable(); // Nullable column for the latitude of the advert
             $table->unsignedBigInteger('bidder_id')->nullable(); // Nullable column for the bidder's ID
+            $table->string('afbeelding')->nullable();
             // Foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('bidder_id')->references('id')->on('users');
+            
         });
     }
 

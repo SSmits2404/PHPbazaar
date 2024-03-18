@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+
+use App\Models\Favorites;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 use App\Models\AdvertComments;
@@ -30,23 +33,23 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'advertisement_text' => 'required|string',
-            'price' => 'required|numeric',
-            'advert_type' => 'required',
-            'expires_at' => 'required|date',
-        ]);
 
         $advert = new Advert();
         $advert->user_id = auth()->id();
-        $advert->title = $validatedData['title'];
-        $advert->advertisement_text = $validatedData['advertisement_text'];
-        $advert->price = $validatedData['price'];
-        $advert->expires_at = $validatedData['expires_at'];
+        $advert->title = $request['title'];
+        $advert->advertisement_text = $request['advertisement_text'];
+        $advert->price = $request['price'];
+        $advert->expires_at = $request['expires_at'];
 
-        if ($validatedData['advert_type'] == 'auction') {
+        if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
+        }
+
+        if ($request->hasFile('afbeelding')) {
+            $image = $request->file('afbeelding');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $advert->afbeelding = $imageName;
         }
 
         $advert->save();
@@ -142,6 +145,33 @@ class NewAdvertController extends Controller
         return back();
     }
 
+
+    public function favorite(string $id)
+    {
+        $existingFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->first();
+        if ($existingFavorite) {
+            return back()->withErrors(['favorite' => 'This advert is already in your favorites.']);
+        }
+        $favorite = new Favorites();
+        $favorite->advert = $id;
+        $favorite->user = auth()->id();
+        $favorite->added = now();
+        $favorite->save();
+        return redirect()->route('adverts.show', $id);
+    }
+    public function unfavorite(string $id)
+    {
+        $favorite = Favorites::where('user', auth()->id())->where('advert', $id);
+                $favorite->delete();
+        return redirect()->route('adverts.show', $id);
+    }
+    
+    public function isFavorite(string $id)
+    {
+         return $this->favorites()->where('advert', $id)->where('user', auth()->id())->exists();
+    }
+                        
+
     /**
      * Remove the specified resource from storage.
      */
@@ -151,5 +181,6 @@ class NewAdvertController extends Controller
             if(auth()->id() === $advert->user_id) {
                 $advert->delete();
             }
+            return redirect()->route('adverts.index');
     }
 }

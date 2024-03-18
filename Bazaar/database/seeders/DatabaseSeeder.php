@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
                 'price' => 8.00,
                 'title' => 'broodje',
                 'advertisement_text' => 'dit broodje is lekker',
+                'expires_at' => null
             ],
             [
                 'id' => 2,
@@ -52,6 +53,16 @@ class DatabaseSeeder extends Seeder
                 'price' => 12.00,
                 'title' => 'lekkerder broodje',
                 'advertisement_text' => 'deze broodje grote lekker',
+                'expires_at' => null
+            ],
+            [
+                'id' => 3,
+                'user_id' => 3,
+                'price' => 1.00,
+                'title' => 'lekkerste broodje',
+                'advertisement_text' => 'deze broodje grootste lekker',
+                'expires_at' => '2024-03-02 00:00:00',
+
             ]
         ]);
     }
