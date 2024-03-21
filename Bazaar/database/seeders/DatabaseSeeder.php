@@ -85,6 +85,13 @@ class DatabaseSeeder extends Seeder
 
             ]
         ]);
+        DB::table('companies')->insert([
+            [
+                'id' => 1,
+                'owner_id' => 1,
+                'custom_url' => 'jumbo',               
+            ]
+        ]);
     }
 
 }

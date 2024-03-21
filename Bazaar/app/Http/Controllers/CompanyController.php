@@ -15,7 +15,7 @@ class CompanyController extends Controller
             return redirect('/');
         }
         else{
-        return view('company', ['company' => $company]);
+        return view('company', ['company' => $company, 'custom_url' => $company->custom_url]);
         }
     }
 
