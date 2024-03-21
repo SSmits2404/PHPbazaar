@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Favorites;
 use Illuminate\Http\Request;
 use App\Models\Advert;
+use App\Models\AdvertComments;
 
 class NewAdvertController extends Controller
 {
@@ -63,9 +64,45 @@ class NewAdvertController extends Controller
     {  
         $advert = Advert::findOrFail($id);
         $advert->load('user');
+        $rating= AdvertComments::where('advert', $id)->get()->average('review');
+        $ratingcount = AdvertComments::where('advert', $id)->get()->count();
+        $user_rating = AdvertComments::where('advert', $id)->where('reviewer', auth()->id())->get('review')->first();
+        $isFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->exists();
+        if($user_rating == null) {
+            $user_rating = new AdvertComments();
+            $user_rating->review = 0;
+        }
         return view('advert', [
             'advert' => $advert,
+            'rating' => round($rating, 1),
+            'user_rating' => $user_rating,
+            'ratingcount' => $ratingcount,
+            'isFavorite' => $isFavorite
         ]);
+    }
+
+    public function rate(Request $request)
+    {
+        $validatedData = $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'advert_id' => 'required'
+        ]);
+
+        $existingComment = AdvertComments::where('advert', $validatedData['advert_id'])
+            ->where('reviewer', auth()->id())
+            ->first();
+
+        if ($existingComment) {
+            $existingComment->delete();
+        }
+
+        $comment = new AdvertComments();
+        $comment->reviewer = auth()->id();
+        $comment->advert = $validatedData['advert_id'];
+        $comment->review = $validatedData['rating'];
+        $comment->save();
+
+        return back();
     }
 
     /**

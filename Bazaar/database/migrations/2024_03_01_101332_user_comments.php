@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('reviewer');
             $table->unsignedBigInteger('reviewee');
-            $table->integer('review');
+            $table->float('review');
             
             $table->foreign('reviewer')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('reviewee')->references('id')->on('users')->onDelete('cascade');

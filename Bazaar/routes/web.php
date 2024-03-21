@@ -34,11 +34,14 @@ Route::resource('/adverts', NewAdvertController::class)->middleware(['auth', 've
 Route::get('/adverts/{advert}/favorite', [NewAdvertController::class, 'favorite'])->name('adverts.favorite')->middleware(['auth', 'verified']);
 Route::get('/adverts/{advert}/unfavorite', [NewAdvertController::class, 'unfavorite'])->name('adverts.unfavorite')->middleware(['auth', 'verified']);
 Route::get('/adverts/{advert}/isFavorite', [NewAdvertController::class, 'isFavorite'])->name('adverts.isFavorite')->middleware(['auth', 'verified']);
+Route::post('/adverts/rate', [NewAdvertController::class, 'rate'])->name('adverts.rate')->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('profile/generateapitoken', [ProfileController::class, 'generateAPIKey'])->name('profile.generateApiToken');
+    Route::post('profile/revokeapitoken', [ProfileController::class, 'revokeAPIKey'])->name('profile.revokeApiToken');
 });
 require __DIR__.'/auth.php';

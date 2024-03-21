@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/adverts/{advert}/currentbid', [NewAdvertController::class, 'currentbid']);
 Route::post('/adverts/{id}/bid', [NewAdvertController::class, 'bid'])->middleware('auth:sanctum');
-
+Route::post('/adverts/new', [NewAdvertController::class, 'store'])->middleware('auth:sanctum');
 route::get('/c/{company}/adverts', [CompanyController::class, 'index'])->middleware(['auth:sanctum', 'verified']);

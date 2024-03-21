@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\map;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -18,22 +20,40 @@ class DatabaseSeeder extends Seeder
         DB::table("users")->insert([
             [
                 'id' => 1,
-                'name' => 'Sander Smits',
-                'email' => 'sandersmits1234@gmail.com',
-                'password' => bcrypt('bazaar'),
+                'name' => 'user',
+                'email' => 'user@user.com',
+                'password' => bcrypt('user'),
+                'role' => 'user',
+
             ],
             [
 
                 'id' => 2,
-                'name' => 'Sander Smitty',
-                'email' => 'sandersmits0404@gmail.com',
-                'password' => bcrypt('bazaar'),
+                'name' => 'advertiser',
+                'email' => 'advertiser@advertiser.com',
+                'password' => bcrypt('advertiser'),
+                'role' => 'advertiser',
             ],
             [
                 'id'=> 3,
                 'name'=> 'root',
                 'email'=> 'root@root.nl',
                 'password'=> bcrypt('root'),
+                'role'=> 'admin'
+            ],
+            [
+                'id'=> 4,
+                'name'=> 'admin',
+                'email'=> 'admin@admin.com',
+                'password'=> bcrypt('admin'),
+                'role'=> 'admin'
+            ],
+            [
+                'id'=> 5,
+                'name'=> 'company',
+                'email'=> 'company@company.com',
+                'password'=> bcrypt('company'),
+                'role'=> 'company'
             ]
         ]);
 
