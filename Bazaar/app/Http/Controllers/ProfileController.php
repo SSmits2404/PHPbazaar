@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class ProfileController extends Controller
 {
@@ -57,4 +59,29 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Generate a new API token for the authenticated user.
+     */
+    public function generateAPIKey(): string
+    {
+        $user = Auth::user();
+        
+        // Delete any existing Sanctum tokens
+        PersonalAccessToken::where('tokenable_id', $user->id)->delete();
+        // generate a new token
+        return $user->createToken("{$user}")->plainTextToken;
+
+    }
+
+    /**
+     * Revoke the user's API token.
+     */
+    public function revokeAPIKey(Request $request): RedirectResponse
+    {
+        $request->user()->tokens()->delete();
+
+        return Redirect::route('profile.edit');
+    }
 }
+     

@@ -67,11 +67,17 @@ class NewAdvertController extends Controller
         $rating= AdvertComments::where('advert', $id)->get()->average('review');
         $ratingcount = AdvertComments::where('advert', $id)->get()->count();
         $user_rating = AdvertComments::where('advert', $id)->where('reviewer', auth()->id())->get('review')->first();
+        $isFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->exists();
+        if($user_rating == null) {
+            $user_rating = new AdvertComments();
+            $user_rating->review = 0;
+        }
         return view('advert', [
             'advert' => $advert,
             'rating' => round($rating, 1),
-            'user_rating' => $user_rating->review,
-            'ratingcount' => $ratingcount
+            'user_rating' => $user_rating,
+            'ratingcount' => $ratingcount,
+            'isFavorite' => $isFavorite
         ]);
     }
 

@@ -34,13 +34,7 @@
                                     Delete
                                 </a>
 
-                                @endif
-                                /fix
-                                @if($advert->user_id != auth()->user()->id)
-                                
-                                @php
-                                    $isFavorite = auth()->user()->favorites->contains($advert->id);
-                                @endphp
+                                @endif                    
 
                                 
                                 
@@ -53,9 +47,7 @@
                                     <a href="{{ route('adverts.favorite', $advert->id) }}" class="inline-flex items-center px-4 py-2 bg-red-500 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-red-700 dark:hover:bg-red focus:bg-red-700 dark:focus:bg-red active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 transition ease-in-out duration-150">
                                     favorite
                                     </a>
-                                @endif
-
-                                @endif
+                                @endif  
                             </div>
                                 
             </div>
@@ -83,8 +75,12 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6 flex">
             <div class="p-6 text-gray-900 dark:text-gray-100 flex-1">
                 <h1 class="font-bold text-x1"><b>{{__('Rating')}}</b></h1>
-                <p>{{__('Rating')}}: {{ $rating }}/5</p>
-                <p>{{__('votes')}}: {{ $ratingcount }}</p>
+                @if(isset($rating))
+                    <p>{{__('Rating')}}: {{ $rating }}/5</p>
+                    <p>{{__('votes')}}: {{ $ratingcount }}</p>
+                @else
+                    <p>{{__('No rating')}}</p>
+                @endif
             </div>
             <div class="p-6 text-gray-900 dark:text-gray-100 flex-1">
                 <h2 class="font-semibold text-lg">{{__('Vote')}}</h2>
@@ -94,7 +90,7 @@
             @csrf
             <input type="hidden" name="advert_id" value="{{ $advert->id }}"> {{-- Pass the advert id --}}
             <input type="hidden" name="rating" value="{{ $i }}"> {{-- Pass the rating value --}}
-            @if ($i == $user_rating)
+            @if (isset($user_rating) && $i == $user_rating->review)
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">{{ $i }}</button>
             @else
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">{{ $i }}</button>
