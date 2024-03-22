@@ -72,12 +72,15 @@ class NewAdvertController extends Controller
             $user_rating = new AdvertComments();
             $user_rating->review = 0;
         }
+        $QR = url("/adverts/{$id}");
         return view('advert', [
             'advert' => $advert,
             'rating' => round($rating, 1),
             'user_rating' => $user_rating,
             'ratingcount' => $ratingcount,
-            'isFavorite' => $isFavorite
+            'isFavorite' => $isFavorite,
+            'QR' => $QR
+
         ]);
     }
 

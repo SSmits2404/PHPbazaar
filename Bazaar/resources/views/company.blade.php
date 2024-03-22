@@ -5,13 +5,9 @@
             </h2>
 
         </x-slot>
-<<<<<<< Updated upstream
         <div> {{$company}}</div>
+        <div> {{$custom_url}}</div>
 
-        {!! QrCode::size(300)->generate("c/{{$custom_url}}") !!}
+        {!! QrCode::size(300)->generate($custom_url) !!}
 
-=======
-        <div class="text-white"> {{$company}}</div>
-        
->>>>>>> Stashed changes
     </x-app-layout>

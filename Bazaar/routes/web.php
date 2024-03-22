@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 // falback route
-Route::get('/c/test', [CompanyController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 
 Route::get('/c/{company}', [CompanyController::class, 'index'])->middleware(['auth', 'verified']);
 Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@generatePDF');

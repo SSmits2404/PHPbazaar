@@ -7,22 +7,22 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
-    public function index(string $company)
+    public function view(string $company)
     {
         $company = Company::where('custom_url', $company)->first();
+       
         if($company == null)
         {
             return redirect('/');
         }
-        else{
-        return view('company', ['company' => $company, 'custom_url' => $company->custom_url]);
-        }
+
+        $customurl = url("/c/{$company->custom_url}");
+        return view('company', ['company' => $company, 'custom_url' => $customurl]);
     }
 
     public function overview()
     {
-        $companies = Company::all(); // Retrieve all companies from the Company model
-
+        $companies = Company::paginate(1);
         return view('companies', [
             'companies' => $companies,
         ]);
