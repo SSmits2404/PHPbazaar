@@ -6,6 +6,18 @@
     </x-slot>
   
     <br>
+     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+     {{__('status')}}: 
+        @if($advert->expires_at > now() && $advert->sold == false)
+            <span class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">{{__('active')}}</span>
+           <!-- <span class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2" id="countdownTimer"> {{$advert->status()}}</span> -->
+        @elseif($advert->expires_at < now())
+            @if($advert->sold == true)
+                <span class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">{{__('sold')}}</span>
+            @else <span class="bg-red-500 text-white px-4 py-2 rounded-lg mr-2">{{__('expired')}}</span>
+            @endif
+        @endif
+        
     @if(isset($advert->expires_at) && $advert->expires_at > now())
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div id="countdownTimer">
@@ -52,6 +64,18 @@
                             </div>
                                 
             </div>
+           
+            @if($advert->advert_type == 'sale' && $advert->sold == false && $advert->user_id != auth()->user()->id && $advert->expires_at > now())
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <h1 class="font-bold text-x1"><b>{{__('Buy now')}}</b></h1>
+                        <form action="{{ route('adverts.buy', $advert->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Buy now')}}</button>
+                        </form>
+                    </div>
+                </div>
+            @endif
             @if($advert->user_id != auth()->user()->id && $advert->bid != null && $advert->expires_at > now())
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6" id="bidelement">
                     <div class="p-6 text-gray-900 dark:text-gray-100">

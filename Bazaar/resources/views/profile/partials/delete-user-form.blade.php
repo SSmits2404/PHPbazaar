@@ -9,7 +9,7 @@
         </p>
     </header>
 
-    <x-danger-button
+    <x-danger-button id="delete-user-button"
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
     >{{ __('Delete Account') }}</x-danger-button>
@@ -31,9 +31,9 @@
                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
                 <x-text-input
-                    id="password"
-                    name="password"
-                    type="password"
+                    id="password2"
+                    name="password2"
+                    type="password2"
                     class="mt-1 block w-3/4"
                     placeholder="{{ __('Password') }}"
                 />
@@ -46,7 +46,7 @@
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ms-3">
+                <x-danger-button id="confirm-delete" class="ms-3">
                     {{ __('Delete Account') }}
                 </x-danger-button>
             </div>

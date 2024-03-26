@@ -7,16 +7,26 @@ use App\Models\Favorites;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 use App\Models\AdvertComments;
+use App\Models\User;
+use App\Models\Rental;
 
 class NewAdvertController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-           $adverts = Advert::with('user')->paginate(1); // Paginates the results, 10 per page
+        $adverts = Advert::with('user')->where('user_id','!=', auth()->id()); // Paginates the results, 10 per page
+        if($request['filter']){
+        $adverts = $adverts->where('advert_type', '=', $request['filter']);
+        }
+        if($request['search']){
+            $adverts = $adverts->where('title', 'like', '%' . $request['search'] . '%');
+        }
 
+
+        $adverts = $adverts->paginate(6);
     return view('adverts', compact('adverts'));
     }
 
@@ -25,7 +35,9 @@ class NewAdvertController extends Controller
      */
     public function create()
     {
-        return view('createadvert');
+        $type = request('type');
+
+        return view('createadvert',[ 'type' => $type]);
     }
 
     /**
@@ -33,13 +45,29 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
-
+        #ddd($request);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'advertisement_text' => 'required',
+            'expiry_moment' => 'required',
+            'type' => 'required'
+        ]);
+        
+        if($request['advert_type'] == 'sale'){
+            $extravalidateddata = $request->validate([
+                'price' => 'required'
+            ]);
+        }
         $advert = new Advert();
         $advert->user_id = auth()->id();
+        $advert->advert_type = $request['advert_type'];
+
+
         $advert->title = $request['title'];
         $advert->advertisement_text = $request['advertisement_text'];
         $advert->price = $request['price'];
         $advert->expires_at = $request['expires_at'];
+        $advert->advert_type = $request['type'];
 
         if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
@@ -57,6 +85,56 @@ class NewAdvertController extends Controller
         return redirect()->route('adverts.index');
     }
 
+    public function rent($id, Request $request)
+    {
+        $advert = Advert::findOrFail($id);
+        if($advert->isrental == false)
+        {
+            return back()->withErrors(['rent' => 'this is not a rental.']);
+        }
+        $validatedData = $request->validate([
+            'start_date' => 'required',
+            'end_date' => 'required'
+        ]);
+        $existingBookings = Rental::where('advert_id', $id)
+            ->where(function ($query) use ($validatedData) {
+                $query->where(function ($query) use ($validatedData) {
+                    $query->where('start_date', '>=', $validatedData['start_date'])
+                        ->where('start_date', '<=', $validatedData['end_date']);
+                })->orWhere(function ($query) use ($validatedData) {
+                    $query->where('end_date', '>=', $validatedData['start_date'])
+                        ->where('end_date', '<=', $validatedData['end_date']);
+                });
+            })
+            ->exists();
+
+        if ($existingBookings) {
+            return back()->withErrors(['rent' => 'There is an existing booking that overlaps with this new booking.']);
+        }
+        $rental = new Rental();
+        $rental->advert_id = $id;
+        $rental->renter_id = auth()->id();
+        $rental->start_date = $validatedData['start_date'];
+        $rental->end_date = $validatedData['end_date'];
+        $rental->save(); 
+        return redirect()->route('adverts.show', $id);
+    }
+
+    public function buy($id, Request $request)
+    {
+        $advert = Advert::findOrFail($id);
+        if($advert->advert_type == 'auction') {
+            return back()->withErrors(['buy' => 'This is an auction.']);
+        }
+        if($advert->sold) {
+            return back()->withErrors(['buy' => 'This advert has already been sold.']);
+        }
+        $advert->sold = true;
+        $advert->bidder_id = auth()->id();
+        $advert->expires_at = now();
+        $advert->save();
+        return redirect()->route('adverts.show', $id);
+    }
     /**
      * Display the specified resource.
      */
@@ -192,4 +270,20 @@ class NewAdvertController extends Controller
             }
             return redirect()->route('adverts.index');
     }
+
+    public function showFavorites()
+{
+    $favorites = Favorites::where('user', auth()->id()) // Update sure the column name to 'user'
+                          ->paginate(1);
+
+    foreach($favorites as $favorite) {
+        $favorite->advert = Advert::find($favorite->advert);
+        $favorite->advert->load('user');
+    }
+
+    return view('favorites', [
+        'favorites' => $favorites,
+    ]);
+}
+
 }
