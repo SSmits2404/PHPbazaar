@@ -27,4 +27,8 @@ class CompanyController extends Controller
             'companies' => $companies,
         ]);
     }
+    public function getIntroText(Company $company)
+    {
+        return $company->intro_text;
+    }
 }

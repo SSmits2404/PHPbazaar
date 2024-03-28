@@ -16,7 +16,13 @@ return new class extends Migration
             $table->foreignId('owner_id')->constrained('users');
             $table->string('custom_url')->nullable();
             $table->boolean('api_enabled')->default(false);
-            $table->timestamps();
+            $table->string('intro')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
         });
     }
 

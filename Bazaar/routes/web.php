@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 // falback route
 Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 
-Route::get('/c/{company}', [CompanyController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/c/{company}', [CompanyController::class, 'view'])->middleware(['auth', 'verified']);
 Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@generatePDF');
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::get('/adverts/create/{type}', [NewAdvertController::class, 'create'])->name('adverts.create')->middleware(['auth', 'verified']);

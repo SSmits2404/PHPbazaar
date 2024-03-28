@@ -5,9 +5,17 @@
             </h2>
 
         </x-slot>
-        <div> {{$company}}</div>
-        <div> {{$custom_url}}</div>
-
-        {!! QrCode::size(300)->generate($custom_url) !!}
+        <br>
+        <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-6">
+            <x-qr-code></x-qr-code>
+            
+            <x-introtext></x-introtext>
+            
+            <x-contact></x-contact>
+        </div>
+        </div>
+        </div>
 
     </x-app-layout>
