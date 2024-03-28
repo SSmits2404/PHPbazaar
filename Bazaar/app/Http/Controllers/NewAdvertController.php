@@ -76,6 +76,11 @@ class NewAdvertController extends Controller
         if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
         }
+        if($request['advert_type'] == 'rental') {
+            $advert->isrental = true;
+            $advert->durability = 100;
+            $advert->wear = $request['wear_percentage_per_use'];
+        }
 
         if ($request->hasFile('afbeelding')) {
             $image = $request->file('afbeelding');
@@ -91,35 +96,43 @@ class NewAdvertController extends Controller
 
     public function rent($id, Request $request)
     {
+        //ddd($request);
         $advert = Advert::findOrFail($id);
-        if($advert->isrental == false)
+        if($advert->isrental() == false)
         {
-            return back()->withErrors(['rent' => 'this is not a rental.']);
+            return back()->withErrors(['rent_start' => 'this is not a rental.']);
         }
         $validatedData = $request->validate([
-            'start_date' => 'required',
-            'end_date' => 'required'
+            'rent_start' => 'required',
+            'rent_end' => 'required'
         ]);
+        
+        if ($validatedData['rent_end'] <= $validatedData['rent_start']) {
+            return back()->withErrors(['rent_end' => 'The end date must be after the start date, nice try :>']);
+        }
+
+
         $existingBookings = Rental::where('advert_id', $id)
             ->where(function ($query) use ($validatedData) {
                 $query->where(function ($query) use ($validatedData) {
-                    $query->where('start_date', '>=', $validatedData['start_date'])
-                        ->where('start_date', '<=', $validatedData['end_date']);
+                    $query->where('start_date', '>=', $validatedData['rent_start'])
+                        ->where('start_date', '<=', $validatedData['rent_end']);
                 })->orWhere(function ($query) use ($validatedData) {
-                    $query->where('end_date', '>=', $validatedData['start_date'])
-                        ->where('end_date', '<=', $validatedData['end_date']);
+                    $query->where('end_date', '>=', $validatedData['rent_start'])
+                        ->where('end_date', '<=', $validatedData['rent_end']);
                 });
             })
             ->exists();
 
         if ($existingBookings) {
-            return back()->withErrors(['rent' => 'There is an existing booking that overlaps with this new booking.']);
+            return back()->withErrors(['rent_start' => 'There is an existing booking that overlaps with this new booking.']);
         }
+        //ddd($request);
         $rental = new Rental();
         $rental->advert_id = $id;
         $rental->renter_id = auth()->id();
-        $rental->start_date = $validatedData['start_date'];
-        $rental->end_date = $validatedData['end_date'];
+        $rental->start_date = $validatedData['rent_start'];
+        $rental->end_date = $validatedData['rent_end'];
         $rental->save(); 
         return redirect()->route('adverts.show', $id);
     }

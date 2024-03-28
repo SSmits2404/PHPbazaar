@@ -79,7 +79,7 @@
                     @csrf
                     <div class="mb-4">
                         <label for="rent_start" class="sr-only">{{__('from')}}</label>
-                        <input type="datetime-local" name="rent_start" id="rent_start" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('rent_start') border-red-500 @enderror" value="{{ old('rent_start') }}">
+                        <input type="datetime-local" name="rent_start" id="rent_start" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-half p-4 rounded-lg @error('rent_start') border-red-500 @enderror" value="{{ old('rent_start') }}">
                         @error('rent_start')
                             <div class="text-red-500 mt-2 text-sm">
                                 {{ $message }}
@@ -88,7 +88,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="rent_end" class="sr-only">{{__('to')}}</label>
-                        <input type="datetime-local" name="rent_end" id="rent_end" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('rent_end') border-red-500 @enderror" value="{{ old('rent_end') }}">
+                        <input type="datetime-local" name="rent_end" id="rent_end" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-half p-4 rounded-lg @error('rent_end') border-red-500 @enderror" value="{{ old('rent_end') }}">
                         @error('rent_end')
                             <div class="text-red-500 mt-2 text-sm">
                                 {{ $message }}
@@ -150,7 +150,7 @@
         </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                {!! QrCode::size(100)->generate($QR) !!} 
+                {{ QrCode::size(100)->generate($QR) }} 
                 </div>
             </div>
         </div>
