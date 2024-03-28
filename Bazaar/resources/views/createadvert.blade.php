@@ -44,7 +44,7 @@
                         @endif
                         <div class="mb-4">
                             <label class="block text-sm font-bold mb-2" for="expiry_moment">
-                                Expiry Moment
+                                {{__('Expiry Moment')}}
                             </label>
                             <div class="flex">
                                 <input type="datetime-local" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-half p-4 rounded-lg" name="expiry_moment" id="expiry_moment">
@@ -54,7 +54,7 @@
 
                         <div class="mb-4">
                             <label for="wear_percentage_per_use" class="sr-only">{{__('Wear Percentage Per Use')}}</label>
-                            <input type="number" name="wear_percentage_per_use" id="wear_percentage_per_use" placeholder="Wear Percentage Per Use" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('wear_percentage_per_use') border-red-500 @enderror" value="{{ old('wear_percentage_per_use') }}">
+                            <input type="number" name="wear_percentage_per_use" min=0 max=100 id="wear_percentage_per_use" placeholder="Wear Percentage Per Use" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-quart p-4 rounded-lg @error('wear_percentage_per_use') border-red-500 @enderror" value="{{ old('wear_percentage_per_use') }}"> {{__('% wear per use')}}
                             @error('wear_percentage_per_use')
                                 <div class="text-red-500 mt-2 text-sm">
                                     {{ $message }}
@@ -65,7 +65,7 @@
 
                         <div class="md:flex gap-8 justify-between">
                             <label class="block text-gray-700 text-xl font-bold mb-2" for="afbeelding">
-                            Afbeelding
+                            {{__('Afbeelding')}}
                             </label>
                         <div class="relative md:w-2/3 w-full">
                         <input class="shadow appearance-none border rounded md:w-full w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('afbeelding') border-red-500 @enderror" id="afbeelding" name="afbeelding" type="file">
@@ -76,6 +76,6 @@
                 </div>
                 <br>
                         
-                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">Create Advert</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Create Advert')}}</button>
 
 </x-app-layout>

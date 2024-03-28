@@ -44,8 +44,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function canmakeadverts()
+    public function CanMakeAdvert($type)
     {
-        return $this->role == 'seller';
+        return true;
     }
 }

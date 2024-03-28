@@ -38,6 +38,8 @@ Route::get('/adverts/{advert}/unfavorite', [NewAdvertController::class, 'unfavor
 Route::get('/adverts/{advert}/isFavorite', [NewAdvertController::class, 'isFavorite'])->name('adverts.isFavorite')->middleware(['auth', 'verified']);
 Route::post('/adverts/rate', [NewAdvertController::class, 'rate'])->name('adverts.rate')->middleware(['auth', 'verified']);
 Route::post('/adverts/{advert}/buy', [NewAdvertController::class, 'buy'])->name('adverts.buy')->middleware(['auth', 'verified']);
+Route::post('/adverts/bought', [NewAdvertController::class, 'bought'])->name('adverts.bought')->middleware(['auth', 'verified']);
+Route::post('advert/{advert}/rent', [NewAdvertController::class, 'rent'])->name('adverts.rent')->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {

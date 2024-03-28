@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bidder_id')->nullable(); // Nullable column for the bidder's ID
             $table->string('afbeelding')->nullable();
             $table->unsignedBigInteger('company_id')->nullable(); // Nullable column for the company's ID
-            $table->enum('advert_type', ['sale', 'auction'])->default('sale'); // Enum column for the advert type
+            $table->enum('advert_type', ['sale', 'auction', 'rental'])->default('sale'); // Enum column for the advert type
             $table->boolean('sold')->default(false); // Boolean column for the sold status of the advert
             $table->boolean('isrental')->default(false); // Boolean column for the rental status of the advert
             $table->integer('durability')->nullable(); // Nullable column for the durability of the advert

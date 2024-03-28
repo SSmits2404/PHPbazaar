@@ -40,6 +40,10 @@ class NewAdvertController extends Controller
         return view('createadvert',[ 'type' => $type]);
     }
 
+    public function bought()
+    {
+       
+    }
     /**
      * Store a newly created resource in storage.
      */

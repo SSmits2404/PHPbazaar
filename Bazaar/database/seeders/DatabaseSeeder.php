@@ -65,7 +65,8 @@ class DatabaseSeeder extends Seeder
                 'price' => 8.00,
                 'title' => 'broodje',
                 'advertisement_text' => 'dit broodje is lekker',
-                'expires_at' => null
+                'expires_at' => '2025-03-02 00:00:00',
+                'advert_type' => 'sale'
             ],
             [
                 'id' => 2,
@@ -73,17 +74,20 @@ class DatabaseSeeder extends Seeder
                 'price' => 12.00,
                 'title' => 'lekkerder broodje',
                 'advertisement_text' => 'deze broodje grote lekker',
-                'expires_at' => null
+                'expires_at' => '2025-03-02 00:00:00',
+                'advert_type' => 'sale'
             ],
-            [
-                'id' => 3,
-                'user_id' => 3,
-                'price' => 1.00,
-                'title' => 'lekkerste broodje',
-                'advertisement_text' => 'deze broodje grootste lekker',
-                'expires_at' => '2024-03-02 00:00:00',
+            ['id' => 3, 'user_id' => 1, 'price' => 14.00, 'title' => 'carpacio broodje','advertisement_text' => 'deze broodje grote lekker met vlees', 'expires_at' => '2025-03-02 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 4, 'user_id' => 3, 'price' => 10.00, 'title' => 'vegan broodje', 'advertisement_text' => '100% plantaardig broodje', 'expires_at' => '2025-04-01 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 5, 'user_id' => 1, 'price' => 9.50, 'title' => 'kaas broodje', 'advertisement_text' => 'broodje met oude kaas', 'expires_at' => '2025-05-05 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 6, 'user_id' => 2, 'price' => 15.00, 'title' => 'deluxe broodje', 'advertisement_text' => 'luxe broodje met exclusieve ingrediënten', 'expires_at' => '2025-06-10 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 7, 'user_id' => 3, 'price' => 11.00, 'title' => 'italiaans broodje', 'advertisement_text' => 'italiaanse kruiden en mozzarella', 'expires_at' => '2025-07-20 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 8, 'user_id' => 1, 'price' => 13.00, 'title' => 'kruidig broodje', 'advertisement_text' => 'met pikante kip en speciale saus', 'expires_at' => '2025-08-15 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 9, 'user_id' => 2, 'price' => 7.50, 'title' => 'eenvoudig broodje', 'advertisement_text' => 'simpel maar heerlijk broodje ham', 'expires_at' => '2025-09-05 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 10, 'user_id' => 3, 'price' => 16.50, 'title' => 'gourmet broodje', 'advertisement_text' => 'met premium rundvlees en truffelmayo', 'expires_at' => '2025-10-30 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 11, 'user_id' => 1, 'price' => 8.75, 'title' => 'ontbijt broodje', 'advertisement_text' => 'perfect start van je dag', 'expires_at' => '2025-11-25 00:00:00', 'advert_type' => 'sale'],
+            ['id' => 12, 'user_id' => 3, 'price' => 12.00, 'title' => 'pittig broodje', 'advertisement_text' => 'met hete saus en jalapeños', 'expires_at' => '2025-12-15 00:00', 'advert_type' => 'sale']
 
-            ]
         ]);
         DB::table('companies')->insert([
             [
