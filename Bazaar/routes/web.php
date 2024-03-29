@@ -44,11 +44,21 @@ Route::get('/createcompany', [CompanyController::class, 'create'])->name('create
 Route::post('/createcompany', [CompanyController::class, 'store'])->name('createcompany.store')->middleware(['auth', 'verified']);
 
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//     Route::post('profile/generateapitoken', [ProfileController::class, 'generateAPIKey'])->name('profile.generateApiToken');
+//     Route::post('profile/revokeapitoken', [ProfileController::class, 'revokeAPIKey'])->name('profile.revokeApiToken');
+// });
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('profile/generateapitoken', [ProfileController::class, 'generateAPIKey'])->name('profile.generateApiToken');
     Route::post('profile/revokeapitoken', [ProfileController::class, 'revokeAPIKey'])->name('profile.revokeApiToken');
 });
+
+Route::post('/api/login', [ProfileController::class, 'login'])->name('api.login');
+Route::post('/api/logout', [ProfileController::class, 'logout'])->name('api.logout');
 require __DIR__.'/auth.php';
