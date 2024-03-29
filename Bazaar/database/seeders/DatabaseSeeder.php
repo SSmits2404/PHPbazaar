@@ -101,7 +101,10 @@ class DatabaseSeeder extends Seeder
                 'address' => 'straat',
                 'city' => 'stad',
                 'country' => 'land',
-                'postal_code' => '1234AB'
+                'postal_code' => '1234AB',
+                'intro_component' => 0,
+                'contact_component' => 0,
+                'qr_code_component' => 0
                          
             ],
             [
@@ -115,7 +118,10 @@ class DatabaseSeeder extends Seeder
                 'address' => 'straat',
                 'city' => 'stad',
                 'country' => 'land',
-                'postal_code' => '4321BA'
+                'postal_code' => '4321BA',
+                'intro_component' => 1,
+                'contact_component' => 1,
+                'qr_code_component' => 1
             ],
         ]);
     }

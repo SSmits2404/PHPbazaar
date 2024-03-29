@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
+            $table->boolean('intro_component')->nullable()->default(false);
+            $table->boolean('contact_component')->nullable()->default(false);
+            $table->boolean('qr_code_component')->nullable()->default(false);
+            $table->string('color')->nullable();
+            $table->timestamps();
         });
     }
 
