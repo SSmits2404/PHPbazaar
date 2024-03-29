@@ -16,6 +16,17 @@ return new class extends Migration
             $table->foreignId('owner_id')->constrained('users');
             $table->string('custom_url')->nullable();
             $table->boolean('api_enabled')->default(false);
+            $table->string('intro')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->boolean('intro_component')->nullable()->default(false);
+            $table->boolean('contact_component')->nullable()->default(false);
+            $table->boolean('qr_code_component')->nullable()->default(false);
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

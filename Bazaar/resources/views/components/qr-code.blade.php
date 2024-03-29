@@ -1,13 +1,6 @@
+
+<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200 flex justify-center items-center">
 <div>
-<<<<<<< Updated upstream
-{!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-8') !!}
-=======
-<?php
-    include 'phpqrcode/qrlib.php';
-    $text = "codedamn.com";
-    QRcode::png($text, 'qrcodes/image.png');
-    ?>
- 
-    <img src="qrcodes/image.png" alt="">
->>>>>>> Stashed changes
+{!! QrCode::size(300)->generate(Request::url()) !!}
+</div>
 </div>
