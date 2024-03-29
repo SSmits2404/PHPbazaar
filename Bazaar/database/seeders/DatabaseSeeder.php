@@ -93,8 +93,36 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 1,
                 'owner_id' => 1,
-                'custom_url' => 'jumbo',               
-            ]
+                'custom_url' => 'jumbo',  
+                'api_enabled' => 1,
+                'intro' => 'Jumbo is een supermarkt',
+                'phone' => 123456789,
+                'email' => 'jumbo@jumbo.nl',
+                'address' => 'straat',
+                'city' => 'stad',
+                'country' => 'land',
+                'postal_code' => '1234AB',
+                'intro_component' => 0,
+                'contact_component' => 0,
+                'qr_code_component' => 0
+                         
+            ],
+            [
+                'id' => 2,
+                'owner_id' => 2,
+                'custom_url' => 'appie',
+                'api_enabled' => 1,
+                'intro' => 'Albert Heijn is een supermarkt',
+                'phone' => 987654321,
+                'email' => 'appie@appie.nl',
+                'address' => 'straat',
+                'city' => 'stad',
+                'country' => 'land',
+                'postal_code' => '4321BA',
+                'intro_component' => 1,
+                'contact_component' => 1,
+                'qr_code_component' => 1
+            ],
         ]);
     }
 

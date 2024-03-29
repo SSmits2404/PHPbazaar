@@ -27,4 +27,64 @@ class CompanyController extends Controller
             'companies' => $companies,
         ]);
     }
+    public function getIntroText(Company $company)
+    {
+        return $company->intro_text;
+    }
+
+    public function create()
+    {
+        return view('createcompany');
+    }
+
+    public function store(Request $request)
+    {
+
+
+        if($request['api_enabled'] == 'on'){
+            $request['api_enabled'] = 1;
+        } else {
+            $request['api_enabled'] = 0;
+        }
+        if($request['intro_component']){
+            $request['intro_component'] = 1;
+        } else {
+            $request['intro_component'] = 0;
+        }
+        if($request['contact_component']){
+            $request['contact_component'] = 1;
+        } else {
+            $request['contact_component'] = 0;
+        }
+        if($request['qr_code_component']){
+            $request['qr_code_component'] = 1;
+        } else {
+            $request['qr_code_component'] = 0;
+        }
+        
+        if(Company::where('custom_url', $request->custom_url)->exists()){
+            return back()->withErrors(['custom_url' => 'url already exists']);
+        }
+        if(Company::where('owner_id', auth()->id())->exists()){
+            return back()->withErrors(['error' => 'already have a company']);
+        }
+        
+        
+        $company = new Company();
+        $company->owner_id = auth()->id();
+        $company->custom_url = $request->custom_url;
+        $company->api_enabled = $request->api_enabled;
+        $company->intro = $request->intro;
+        $company->phone = $request->phone;
+        $company->email = $request->email;
+        $company->address = $request->address;
+        $company->city = $request->city;
+        $company->country = $request->country;
+        $company->postal_code = $request->postal_code;
+        $company->intro_component = $request->intro_component;
+        $company->contact_component = $request->contact_component;
+        $company->color = $request->color;
+        $company->save();
+        return redirect('/c/'.$request->custom_url);
+    }
 }

@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 // falback route
 Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 
-Route::get('/c/{company}', [CompanyController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/c/{company}', [CompanyController::class, 'view'])->middleware(['auth', 'verified']);
 Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@generatePDF');
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::get('/adverts/create/{type}', [NewAdvertController::class, 'create'])->name('adverts.create')->middleware(['auth', 'verified']);
@@ -40,6 +40,8 @@ Route::post('/adverts/rate', [NewAdvertController::class, 'rate'])->name('advert
 Route::post('/adverts/{advert}/buy', [NewAdvertController::class, 'buy'])->name('adverts.buy')->middleware(['auth', 'verified']);
 Route::post('/adverts/bought', [NewAdvertController::class, 'bought'])->name('adverts.bought')->middleware(['auth', 'verified']);
 Route::post('advert/{advert}/rent', [NewAdvertController::class, 'rent'])->name('adverts.rent')->middleware(['auth', 'verified']);
+Route::get('/createcompany', [CompanyController::class, 'create'])->name('createcompany')->middleware(['auth', 'verified']);
+Route::post('/createcompany', [CompanyController::class, 'store'])->name('createcompany.store')->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
