@@ -40,7 +40,7 @@ Route::post('/adverts/rate', [NewAdvertController::class, 'rate'])->name('advert
 Route::post('/adverts/{advert}/buy', [NewAdvertController::class, 'buy'])->name('adverts.buy')->middleware(['auth', 'verified']);
 Route::post('/adverts/bought', [NewAdvertController::class, 'bought'])->name('adverts.bought')->middleware(['auth', 'verified']);
 Route::post('advert/{advert}/rent', [NewAdvertController::class, 'rent'])->name('adverts.rent')->middleware(['auth', 'verified']);
-
+Route::get('/u/buy-history', [NewAdvertController::class, 'showbought'])->name('adverts.bought')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

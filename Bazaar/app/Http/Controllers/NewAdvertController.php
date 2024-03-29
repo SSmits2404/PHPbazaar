@@ -289,7 +289,7 @@ class NewAdvertController extends Controller
     }
 
     public function showFavorites()
-{
+    {
     $favorites = Favorites::where('user', auth()->id()) // Update sure the column name to 'user'
                           ->paginate(1);
 
@@ -301,6 +301,21 @@ class NewAdvertController extends Controller
     return view('favorites', [
         'favorites' => $favorites,
     ]);
-}
+    }
+    
+    public function showbought(){
+        $adverts = Advert::where(function ($query) {
+            $query->where('bidder_id', auth()->id())
+                ->where('expires_at', '<', now());
+        })->orWhere(function ($query) {
+            $query->where('sold', true)
+                ->where('bidder_id', auth()->id());
+        })->paginate(1);
+
+        return view('bought', [
+            'adverts' => $adverts,
+        ]);
+        
+    }
 
 }

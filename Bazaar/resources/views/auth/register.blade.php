@@ -52,8 +52,13 @@
 
                 <!-- Administrator Account Type -->
                 <label class="inline-flex items-center">
-                    <input type="radio" class="text-indigo-600 border-gray-300 dark:border-gray-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-300" name="account_type" value="admin">
-                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Administrator') }}</span>
+                    <input type="radio" class="text-indigo-600 border-gray-300 dark:border-gray-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-300" name="account_type" value="advertiser">
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Advertiser') }}</span>
+                </label>
+
+                <label class="inline-flex items-center">
+                    <input type="radio" class="text-indigo-600 border-gray-300 dark:border-gray-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-300" name="account_type" value="company">
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('company') }}</span>
                 </label>
             </div>
 

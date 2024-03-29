@@ -46,6 +46,15 @@ class User extends Authenticatable
 
     public function CanMakeAdvert($type)
     {
-        return true;
+        if($this->role == 'user'){
+            return false;
+        }
+
+        if(Advert::Where('user_id', $this->id)->Where('advert_type', $type)->where('expires_at', '>', now())->count() < 4){
+            return true;
+        } else {
+            return false;
+        }
     }
+
 }

@@ -4,6 +4,7 @@
             {{ __('creating advert type') }} {{$type}}
         </h2>
     </x-slot>
+    @if(auth()->user()->CanMakeAdvert($type))
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
@@ -77,5 +78,11 @@
                 <br>
                         
                 <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Create Advert')}}</button>
+            </form>
+        </div>
+    </div>
+    @else
+        <p>{{__('You are not allowed to create this type of advert because you either have to many of this type active or do not have the ability to make adverts       ')}}</p>
+    @endif
 
 </x-app-layout>

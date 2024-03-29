@@ -38,4 +38,8 @@ class Advert extends Model
     public function isrental(){
         return $this->isrental;
     }
+
+    public function canmakeAdvert(){
+        return $this->user->role == 'company' || $this->user->role == 'advertiser';
+    }
 }
