@@ -12,7 +12,7 @@
 
                 @foreach($advertTypes as $type => $label)
                     @if(Auth::user()->CanMakeAdvert($type))
-                        <a href="{{ route('adverts.create', ['type' => $type]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __($label) }}</a>
+                        <a href="{{ route('adverts.create', ['advert_type' => $type]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __($label) }}</a>
                     @endif
                 @endforeach
             @endif

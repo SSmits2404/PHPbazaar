@@ -49,12 +49,12 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
-        #ddd($request);
+        
         $validatedData = $request->validate([
             'title' => 'required',
             'advertisement_text' => 'required',
             'expiry_moment' => 'required',
-            'type' => 'required'
+            'advert_type' => 'required'
         ]);
         
         if($request['advert_type'] == 'sale'){
@@ -76,7 +76,9 @@ class NewAdvertController extends Controller
         if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
         }
+        
         if($request['advert_type'] == "rental") {
+            $advert->advert_type = "rental";
             $advert->isrental = true;
             $advert->durability = 100;
             $advert->wear = $request['wear_percentage_per_use'];
@@ -88,7 +90,6 @@ class NewAdvertController extends Controller
             $image->move(public_path('images'), $imageName);
             $advert->afbeelding = $imageName;
         }
-       
         $advert->save();
 
         return redirect()->route('adverts.index');
@@ -134,7 +135,7 @@ class NewAdvertController extends Controller
         $rental->start_date = $validatedData['rent_start'];
         $rental->end_date = $validatedData['rent_end'];
         $rental->save(); 
-        return redirect()->route('adverts.show', $id);
+        return redirect()->route('adverts.index');
     }
 
     public function buy($id, Request $request)
@@ -318,4 +319,29 @@ class NewAdvertController extends Controller
         
     }
 
+    public function ownRent()
+    {
+        
+        $ownRentals = Rental::whereHas('advert', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->get();
+
+        return view('ownRent', [
+            'ownRentals' => $ownRentals,
+        ]);
+    }
+    public function rented()
+    {
+        $rentedAdverts = Rental::where('renter_id', auth()->id())->get();
+        return view('rented', [
+            'rentedAdverts' => $rentedAdverts
+        ]);
+    }
+    public function expiry()
+    {
+        $rentalExpiry = Advert::where('user_id', auth()->id())->where('expires_at', '>', now())->get();
+        return view('expiry', [
+            'rentalExpiry' => $rentalExpiry
+        ]);
+    }
 }
