@@ -41,6 +41,10 @@ Route::post('advert/{advert}/rent', [NewAdvertController::class, 'rent'])->name(
 Route::get('/createcompany', [CompanyController::class, 'create'])->name('createcompany')->middleware(['auth', 'verified']);
 Route::post('/createcompany', [CompanyController::class, 'store'])->name('createcompany.store')->middleware(['auth', 'verified']);
 Route::get('/u/buy-history', [NewAdvertController::class, 'showbought'])->name('adverts.bought')->middleware(['auth', 'verified']);
+Route::get('/ownRent', [NewAdvertController::class, 'ownRent'])->name('ownRent');
+Route::get('/rented', [NewAdvertController::class, 'rented'])->name('rented');
+Route::get('/expiry', [NewAdvertController::class, 'expiry'])->name('expiry');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
