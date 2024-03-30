@@ -322,13 +322,17 @@ class NewAdvertController extends Controller
     public function ownRent()
     {
         
-        $ownRentals = Rental::whereHas('advert', function ($query) {
+        $ownRentals = Rental::with('advert')->whereHas('advert', function ($query) {
             $query->where('user_id', auth()->id());
         })->get();
 
+        foreach ($ownRentals as $rental) {
+            $advert = $rental->advert;
+        
         return view('ownRent', [
             'ownRentals' => $ownRentals,
         ]);
+        }
     }
     public function rented()
     {

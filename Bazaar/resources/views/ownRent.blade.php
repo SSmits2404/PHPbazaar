@@ -24,6 +24,8 @@
                             <div class="p-6 dark:text-gray-100 flex flex-col">
                                 <div class="flex">
                                     <div class="ml-auto pr-25">
+                                        {{__('Title')}}: {{ $own->$advert->title}}
+                                        <br>
                                         {{__('Start Date')}}: {{ $own->start_date}}
                                         <br>
                                         {{__('End Date')}}: {{ $own->end_date}}
