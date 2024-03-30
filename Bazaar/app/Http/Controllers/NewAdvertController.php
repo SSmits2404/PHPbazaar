@@ -76,7 +76,7 @@ class NewAdvertController extends Controller
         if ($request['advert_type'] == 'auction') {
             $advert->bid = 0.00;
         }
-        if($request['advert_type'] == 'rental') {
+        if($request['advert_type'] == "rental") {
             $advert->isrental = true;
             $advert->durability = 100;
             $advert->wear = $request['wear_percentage_per_use'];
@@ -88,7 +88,7 @@ class NewAdvertController extends Controller
             $image->move(public_path('images'), $imageName);
             $advert->afbeelding = $imageName;
         }
-
+       
         $advert->save();
 
         return redirect()->route('adverts.index');
@@ -98,7 +98,7 @@ class NewAdvertController extends Controller
     {
         //ddd($request);
         $advert = Advert::findOrFail($id);
-        if($advert->isrental() == false)
+        if($advert->advert_type != "rental")
         {
             return back()->withErrors(['rent_start' => 'this is not a rental.']);
         }

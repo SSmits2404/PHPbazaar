@@ -35,10 +35,6 @@ class Advert extends Model
         return __('unknown');
     }
 
-    public function isrental(){
-        return $this->isrental;
-    }
-
     public function canmakeAdvert(){
         return $this->user->role == 'company' || $this->user->role == 'advertiser';
     }

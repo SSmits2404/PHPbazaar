@@ -13,7 +13,7 @@
                     
                     <form action="{{ route('adverts.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                         <input type="hidden" name="type" value="{{$type}}">
+                         <input type="hidden" name="advert_type" id="advert_type" value="{{$type}}">
                         <div class="mb-4">
                             <label for="title" class="sr-only">{{__('Title')}}</label>
                             <input type="text" name="title" id="title" placeholder="Title" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('title') border-red-500 @enderror" value="{{ old('title') }}">
