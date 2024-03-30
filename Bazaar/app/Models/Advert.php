@@ -9,7 +9,6 @@ class Advert extends Model
     
     protected $table = 'adverts';
     protected $primaryKey = 'id';
-    public $timestamps = false;
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -34,7 +33,6 @@ class Advert extends Model
         }
         return __('unknown');
     }
-
     public function canmakeAdvert(){
         return $this->user->role == 'company' || $this->user->role == 'advertiser';
     }
