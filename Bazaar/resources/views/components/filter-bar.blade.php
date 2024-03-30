@@ -4,14 +4,14 @@
             <a href="{{ route('adverts.index', ['filter' => 'sale']) }}">Buy</a>
         </x-secondary-button>
         <x-secondary-button>
-            <a href="{{ route('adverts.index', ['filter' => 'rental']) }}">Rent</a>
+            <a href="{{ route('adverts.index', ['filter' => "rental"]) }}">Rent</a>
         </x-secondary-button>
         <x-secondary-button>
             <a href="{{ route('adverts.index', ['filter' => 'auction']) }}">Auction</a>
         </x-secondary-button>  
         <form action="{{ route('adverts.index') }}" method="GET">
-            <input type="text" name="search" placeholder="Search...">
-            <button type="submit">Search</button>
+            <input type="text" name="search" placeholder="Search">
+            <button type="submit">{{__('Search')}}</button>
         </form> 
     </div>
 

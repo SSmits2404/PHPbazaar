@@ -15,6 +15,19 @@ class NewAdvertController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function dashboard(Request $request){
+        $adverts = Advert::orderByDesc('created_at');
+        if($request['search']){ 
+            $adverts = $adverts->where('title', 'like', '%' . $request['search'] . '%');
+        }
+
+        $adverts = $adverts->paginate(6);
+        return view('dashboard', [
+            'adverts' => $adverts,
+        ]);
+    }
+
     public function index(Request $request)
     {
         $adverts = Advert::with('user')->where('user_id','!=', auth()->id()); // Paginates the results, 10 per page
