@@ -70,7 +70,7 @@ class NewAdvertController extends Controller
         $advert->title = $request['title'];
         $advert->advertisement_text = $request['advertisement_text'];
         $advert->price = $request['price'];
-        $advert->expires_at = $request['expires_at'];
+        $advert->expires_at = $request['expiry_moment'];
         $advert->advert_type = $request['type'];
 
         if ($request['advert_type'] == 'auction') {
