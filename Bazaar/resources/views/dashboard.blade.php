@@ -5,18 +5,16 @@
         </h2>
     </x-slot>
 
-           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="flex">
-                <div>
-    
-                <form action="{{ route('dashboard') }}" method="GET">
-                <input type="text" name="search" placeholder="Search">
-                <button type="submit">{{__('Search')}}</button>
-                </form> 
-    </div>
-
-</div>
+                    <div>    
+                        <form action="{{ route('dashboard') }}" method="GET">
+                        <input type="text" name="search" placeholder="Search">
+                        <button type="submit">{{__('Search')}}</button>
+                        </form> 
+                    </div>
+                </div>
             </div>
             <div class="grid md:grid-cols-2 gap-6">
                 @foreach ($adverts as $advert)

@@ -33,6 +33,9 @@
                     @endforeach
                 </div>
             </div>
+            <div class="mt-4">
+                {{ $rentedAdverts->links() }}
+            </div>
         </div>
     </div>   
 </x-app-layout>

@@ -332,33 +332,64 @@ class NewAdvertController extends Controller
         
     }
 
-    public function ownRent()
-    {
-        
-        $ownRentals = Rental::with('advert')->whereHas('advert', function ($query) {
-            $query->where('user_id', auth()->id());
-        })->get();
 
-        foreach ($ownRentals as $rental) {
-            $advert = $rental->advert;
-        
-        return view('ownRent', [
-            'ownRentals' => $ownRentals,
-        ]);
+public function ownRent(Request $request)
+{
+    // Retrieve all rentals with their associated adverts where the advert belongs to the authenticated user
+    $ownRentals = Rental::with('advert')
+        ->whereHas('advert', function ($query) {
+            $query->where('user_id', auth()->id());
+        });
+
+        if($request->has('search')){
+            $ownRentals = $ownRentals->whereHas('advert', function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request['search'] . '%');
+            });
         }
-    }
-    public function rented()
+
+    // Return the view with the rentals belonging to the user along with their associated adverts
+    $ownRentals = $ownRentals->paginate(6);
+    return view('ownRent', [
+        'ownRentals' => $ownRentals,
+    ]);
+}
+
+       
+    public function rented(request $request)
     {
-        $rentedAdverts = Rental::where('renter_id', auth()->id())->get();
-        return view('rented', [
-            'rentedAdverts' => $rentedAdverts
-        ]);
-    }
-    public function expiry()
+        $rented = Rental::with('advert')
+        ->whereHas('advert', function ($query) {
+            $query->where('user_id', auth()->id());
+        });
+
+        if($request->has('search')){
+            $rented = $rented->whereHas('advert', function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request['search'] . '%');
+            });
+        }
+
+    // Return the view with the rentals belonging to the user along with their associated adverts
+    $rented = $rented->paginate(6);
+    return view('rented', [
+        'rentedAdverts' => $rented,
+    ]);
+}
+    public function expiry(request $request)
     {
-        $rentalExpiry = Advert::where('user_id', auth()->id())->where('expires_at', '>', now())->get();
+        $rentalExpiry = Advert::where('user_id', auth()->id());
+        if($request['filter']){
+            $rentalExpiry = $rentalExpiry->where('advert_type', '=', $request['filter']);
+            };
+        
+
+        if($request->has('search')){
+            $rentalExpiry = $rentalExpiry->where('title', 'like', '%' . $request['search'] . '%');
+            }
+
+    // Return the view with the rentals belonging to the user along with their associated adverts
+        $rentalExpiry = $rentalExpiry->paginate(6);
         return view('expiry', [
-            'rentalExpiry' => $rentalExpiry
+            'rentalExpiry' => $rentalExpiry,
         ]);
     }
 }

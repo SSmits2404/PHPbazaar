@@ -18,13 +18,23 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="flex">
+                    <div>    
+                        <form action="{{ route('ownRent') }}" method="GET">
+                        <input type="text" name="search" placeholder="Search">
+                        <button type="submit">{{__('Search')}}</button>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="grid md:grid-cols-2 gap-6">                
                     @foreach($ownRentals as $own)
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
                             <div class="p-6 dark:text-gray-100 flex flex-col">
                                 <div class="flex">
                                     <div class="ml-auto pr-25">
-                                        {{__('Title')}}: {{ $own->$advert->title}}
+                                        {{__('Title')}}: {{ $own->advert->title}}
                                         <br>
                                         {{__('Start Date')}}: {{ $own->start_date}}
                                         <br>
@@ -35,6 +45,9 @@
                         </div>                               
                     @endforeach
                 </div>
+            </div>
+            <div class="mt-4">
+                {{ $ownRentals->links() }}
             </div>
         </div>
     </div>   
