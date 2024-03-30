@@ -21,9 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [NewAdvertController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 // falback route
 Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 
