@@ -14,6 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('advert');
             $table->date('startDate');
             $table->date('EndDate');
+
             
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('advert')->references('id')->on('adverts')->onDelete('cascade');

@@ -48,8 +48,9 @@ class NewAdvertController extends Controller
      */
     public function create()
     {
-        $type = request('type');
-
+        
+        $type = request('advert_type');
+        
         return view('createadvert',[ 'type' => $type]);
     }
 
@@ -341,11 +342,11 @@ public function ownRent(Request $request)
             $query->where('user_id', auth()->id());
         });
 
-        if($request->has('search')){
-            $ownRentals = $ownRentals->whereHas('advert', function ($query) use ($request) {
-                $query->where('title', 'like', '%' . $request['search'] . '%');
-            });
-        }
+    if ($request->has('search')) {
+        $ownRentals = $ownRentals->whereHas('advert', function ($query) use ($request) {
+            $query->where('title', 'like', '%' . $request['search'] . '%');
+        });
+    }
 
     // Return the view with the rentals belonging to the user along with their associated adverts
     $ownRentals = $ownRentals->paginate(6);
@@ -353,23 +354,27 @@ public function ownRent(Request $request)
         'ownRentals' => $ownRentals,
     ]);
 }
+    
+    
 
        
     public function rented(request $request)
     {
+        
         $rented = Rental::with('advert')
         ->whereHas('advert', function ($query) {
-            $query->where('user_id', auth()->id());
+            $query->where('renter_id', auth()->id());
         });
-
+        
         if($request->has('search')){
             $rented = $rented->whereHas('advert', function ($query) use ($request) {
                 $query->where('title', 'like', '%' . $request['search'] . '%');
             });
         }
-
+        
     // Return the view with the rentals belonging to the user along with their associated adverts
     $rented = $rented->paginate(6);
+    
     return view('rented', [
         'rentedAdverts' => $rented,
     ]);
@@ -392,4 +397,34 @@ public function ownRent(Request $request)
             'rentalExpiry' => $rentalExpiry,
         ]);
     }
+
+
+    public function pickUp(Request $request)
+    {
+        $rental = Rental::findOrFail($request->id);
+        $rental->picked_up = true;
+        $rental->save();
+        return redirect()->route('rented');
+    }
+    
+    public function return(Request $request)
+    {
+        $rental = Rental::findOrFail($request->id);
+        return view('return', ['id' => $rental->id]);
+    }
+public function returnItem(Request $request)
+{
+    ddd($request);
+    $rental = Rental::findOrFail($request->id);
+    if ($request->hasFile('afbeelding')) {
+        $image = $request->file('afbeelding');
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images'), $imageName);
+        $rental->afbeelding = $imageName;
+    }
+    $rental->picked_up = false;
+    $rental->available = false;
+    $rental->save();    
+    return redirect()->route('rented');
+    }   
 }

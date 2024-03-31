@@ -6,8 +6,9 @@
                 <a href="/" class="bg-red-500 text-white px-4 py-3 rounded font-medium">{{ __('admin') }}</a>
             @endif
             @if(Auth::check())
+
                 @php
-                $advertTypes = ['sale' => 'new sale', 'auction' => 'new auction', 'rental' => 'new rental'];
+                    $advertTypes = ['sale' => 'new sale', 'auction' => 'new auction', 'rental' => 'new rental'];
                 @endphp
 
                 @foreach($advertTypes as $type => $label)
