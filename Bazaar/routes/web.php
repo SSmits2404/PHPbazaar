@@ -25,7 +25,7 @@ Route::get('/dashboard', [NewAdvertController::class, 'dashboard'])->middleware(
 // falback route
 Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 
-Route::get('/c/{company}', [CompanyController::class, 'view'])->middleware(['auth', 'verified']);
+Route::get('/c/{company}', [CompanyController::class, 'view'])->name('company')->middleware(['auth', 'verified']);
 Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@generatePDF');
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::get('/adverts/create/{type}', [NewAdvertController::class, 'create'])->name('adverts.create')->middleware(['auth', 'verified']);
@@ -48,7 +48,7 @@ Route::get('/pickUp', [NewAdvertController::class, 'pickUp'])->name('rented.pick
 Route::get('/return', [NewAdvertController::class, 'return'])->name('return');
 Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem');
 Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair');
-
+Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate');
 
 
 Route::middleware('auth')->group(function () {

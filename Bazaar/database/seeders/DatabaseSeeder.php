@@ -159,6 +159,22 @@ class DatabaseSeeder extends Seeder
                 'contact_component' => 1,
                 'qr_code_component' => 1
             ],
+            [
+                'id' => 3,
+                'owner_id' => 5,
+                'custom_url' => 'dirk',
+                'api_enabled' => 1,
+                'intro' => 'Dirk is een supermarkt',
+                'phone' => 123456789,
+                'email' => 'dirk@dirk.nl',
+                'address' => 'straat',
+                'city' => 'stad',
+                'country' => 'land',
+                'postal_code' => '1234AB',
+                'intro_component' => 0,
+                'contact_component' => 0,
+                'qr_code_component' => 0
+            ],
         ]);
     }
 

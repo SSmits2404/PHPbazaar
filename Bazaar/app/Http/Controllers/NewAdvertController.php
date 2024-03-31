@@ -9,6 +9,7 @@ use App\Models\Advert;
 use App\Models\AdvertComments;
 use App\Models\User;
 use App\Models\Rental;
+use App\Models\Company;
 
 class NewAdvertController extends Controller
 {
@@ -184,6 +185,16 @@ class NewAdvertController extends Controller
             $user_rating = new AdvertComments();
             $user_rating->review = 0;
         }
+        
+        
+        $companyCustomUrl = '';
+        $id = $advert->user_id;
+        
+        $company = Company::where('owner_id', $id)->first();
+        
+        if($company) {
+            $companyCustomUrl = $company->custom_url;
+        }
         $QR = url("/adverts/{$id}");
         return view('advert', [
             'advert' => $advert,
@@ -191,7 +202,8 @@ class NewAdvertController extends Controller
             'user_rating' => $user_rating,
             'ratingcount' => $ratingcount,
             'isFavorite' => $isFavorite,
-            'QR' => $QR
+            'QR' => $QR,
+            'companyCustomUrl' => $companyCustomUrl
 
         ]);
     }
