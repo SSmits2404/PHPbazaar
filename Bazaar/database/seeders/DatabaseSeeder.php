@@ -105,25 +105,25 @@ class DatabaseSeeder extends Seeder
 
         ]);
         DB::table('rentals')->insert([
-            ['id' => 1, 'advert_id' => 16, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 2, 'advert_id' => 17, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 3, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 4, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 5, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 6, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 7, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 8, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 9, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 10, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 11, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 12, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 13, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 14, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 15, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 16, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 17, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 18, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00'],
-            ['id' => 19, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00']
+            ['id' => 1, 'advert_id' => 16, 'renter_id' => 5, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 2, 'advert_id' => 17, 'renter_id' => 5, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> false],
+            ['id' => 3, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => true, 'available'=> true],
+            ['id' => 4, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 5, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 6, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 7, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 8, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 9, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 10, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 11, 'advert_id' => 18, 'renter_id' => 5, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 12, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 13, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 14, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 15, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 16, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 17, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 18, 'advert_id' => 18, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
+            ['id' => 19, 'advert_id' => 19, 'renter_id' => 3, 'start_date' => '2025-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true]
         ]);
         DB::table('companies')->insert([
             [

@@ -48,8 +48,9 @@ class NewAdvertController extends Controller
      */
     public function create()
     {
-        $type = request('type');
-
+        
+        $type = request('advert_type');
+        
         return view('createadvert',[ 'type' => $type]);
     }
 
@@ -93,8 +94,10 @@ class NewAdvertController extends Controller
         if($request['advert_type'] == "rental") {
             $advert->advert_type = "rental";
             $advert->isrental = true;
-            $advert->durability = 100;
+            $advert->durability = $request['durability'];
+            $advert->base_durability = $request['durability'];
             $advert->wear = $request['wear_percentage_per_use'];
+
         }
 
         if ($request->hasFile('afbeelding')) {
@@ -341,11 +344,11 @@ public function ownRent(Request $request)
             $query->where('user_id', auth()->id());
         });
 
-        if($request->has('search')){
-            $ownRentals = $ownRentals->whereHas('advert', function ($query) use ($request) {
-                $query->where('title', 'like', '%' . $request['search'] . '%');
-            });
-        }
+    if ($request->has('search')) {
+        $ownRentals = $ownRentals->whereHas('advert', function ($query) use ($request) {
+            $query->where('title', 'like', '%' . $request['search'] . '%');
+        });
+    }
 
     // Return the view with the rentals belonging to the user along with their associated adverts
     $ownRentals = $ownRentals->paginate(6);
@@ -353,23 +356,27 @@ public function ownRent(Request $request)
         'ownRentals' => $ownRentals,
     ]);
 }
+    
+    
 
        
     public function rented(request $request)
     {
+        
         $rented = Rental::with('advert')
         ->whereHas('advert', function ($query) {
-            $query->where('user_id', auth()->id());
+            $query->where('renter_id', auth()->id());
         });
-
+        
         if($request->has('search')){
             $rented = $rented->whereHas('advert', function ($query) use ($request) {
                 $query->where('title', 'like', '%' . $request['search'] . '%');
             });
         }
-
+        
     // Return the view with the rentals belonging to the user along with their associated adverts
     $rented = $rented->paginate(6);
+    
     return view('rented', [
         'rentedAdverts' => $rented,
     ]);
@@ -391,5 +398,48 @@ public function ownRent(Request $request)
         return view('expiry', [
             'rentalExpiry' => $rentalExpiry,
         ]);
+    }
+
+
+    public function pickUp(Request $request)
+    {
+        $rental = Rental::findOrFail($request->id);
+        $rental->picked_up = true;
+        $rental->save();
+        return redirect()->route('rented');
+    }
+    
+    public function return(Request $request)
+    {
+        $rental = Rental::find($request->id);
+        return view('return', ['id' => $rental->id]);
+    }
+public function returnItem(Request $request)
+{
+    
+    
+    $rental = Rental::find($request->id);
+    if ($request->hasFile('afbeelding')) {
+        $image = $request->file('afbeelding');
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images'), $imageName);
+        $rental->afbeelding = $imageName;
+    }
+    $rental->picked_up = false;
+    $rental->available = false;
+    $advert = Advert::find($rental->advert_id);
+    $advert->durability = $advert->durability - $advert->wear;
+    $advert->save();
+    $rental->save();  
+      
+    return redirect()->route('rented');
+    }   
+
+    public function repair($id)
+    {
+        $advert = Advert::find($id);
+        $advert->durability = $advert->base_durability;
+        $advert->save();
+        return redirect()->route('expiry');
     }
 }

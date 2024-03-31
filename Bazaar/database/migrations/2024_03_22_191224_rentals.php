@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('renter_id');
             $table->date('start_date');
             $table->date('end_date');
+            $table->boolean('picked_up')->default(false);
+            $table->boolean('available')->default(true);
+            $table->string('afbeelding')->nullable();
             $table->timestamps();
 
             $table->foreign('advert_id')->references('id')->on('adverts');

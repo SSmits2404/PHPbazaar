@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('advert_type', ['sale', 'auction', 'rental'])->default('sale'); // Enum column for the advert type
             $table->boolean('sold')->default(false); // Boolean column for the sold status of the advert
             $table->boolean('isrental')->default(false); // Boolean column for the rental status of the advert
+            $table->integer('base_durability')->nullable(); // Nullable column for the base durability of the advert
             $table->integer('durability')->nullable(); // Nullable column for the durability of the advert
             $table->integer('wear')->nullable(); // Nullable column for the wear of the advert
             // Foreign key constraint
