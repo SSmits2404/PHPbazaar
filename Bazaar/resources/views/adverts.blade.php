@@ -15,9 +15,11 @@
                         <a href="{{ route('adverts.create', ['type' => $type]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __($label) }}</a>
                     @endif
                 @endforeach
-            @endif
-
             
+            @endif
+            @if(Auth::check() && Auth::user()->role == 'company')
+                <a href="{{ route('adverts.bulkimport') }}" class="bg-red-500 text-white px-4 py-3 rounded font-medium">{{ __('bulk import') }}</a>
+            @endif
         </h2>
     </x-slot>
 

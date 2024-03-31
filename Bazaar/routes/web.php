@@ -30,6 +30,8 @@ Route::get('/generate-contract-pdf', 'App\Http\Controllers\ContractController@ge
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
 Route::get('/adverts/create/{type}', [NewAdvertController::class, 'create'])->name('adverts.create')->middleware(['auth', 'verified']);
 Route::resource('/adverts', NewAdvertController::class)->middleware(['auth', 'verified']);
+Route::get('bulk', [NewAdvertController::class, 'bulkimport'])->name('adverts.bulkimport')->middleware(['auth', 'verified']);
+Route::post('bulkimports', [NewAdvertController::class, 'bulkimportstore'])->name('adverts.bulkstore')->middleware(['auth', 'verified']);
 Route::get('/adverts/{advert}/favorite', [NewAdvertController::class, 'favorite'])->name('adverts.favorite')->middleware(['auth', 'verified']);
 Route::get('/favorites', [NewAdvertController::class, 'showfavorites'])->name('favorites')->middleware(['auth', 'verified']);
 Route::get('/adverts/{advert}/unfavorite', [NewAdvertController::class, 'unfavorite'])->name('adverts.unfavorite')->middleware(['auth', 'verified']);

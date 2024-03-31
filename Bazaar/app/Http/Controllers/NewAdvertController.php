@@ -304,7 +304,7 @@ class NewAdvertController extends Controller
     public function showFavorites()
     {
     $favorites = Favorites::where('user', auth()->id()) // Update sure the column name to 'user'
-                          ->paginate(1);
+    ->paginate(1);
 
     foreach($favorites as $favorite) {
         $favorite->advert = Advert::find($favorite->advert);
@@ -329,6 +329,22 @@ class NewAdvertController extends Controller
             'adverts' => $adverts,
         ]);
         
+    }
+
+    public function bulkimport()
+    {
+        return view('bulkimport');
+    }
+
+    public function bulkimportstore(Request $request)
+    {
+
+        $file = $request->file('file');
+        $fileContents = file($file->getPathname());
+        ddd($fileContents);
+        foreach ($fileContents as $line) {
+            $data = str_getcsv($line);
+        }
     }
 
 }
