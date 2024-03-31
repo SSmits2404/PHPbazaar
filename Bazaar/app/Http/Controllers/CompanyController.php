@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserComments;
 use App\Models\Company;
 
 class CompanyController extends Controller
@@ -10,6 +11,12 @@ class CompanyController extends Controller
     public function view(string $company)
     {
         $company = Company::where('custom_url', $company)->first();
+        $id = $company->id;
+        $rating= UserComments::where('reviewee', $id)->get()->average('review');
+        $ratingcount = UserComments::where('reviewee', $id)->get()->count();
+        $user_rating = UserComments::where('reviewee', $id)->where('reviewer', auth()->id())->get('review')->first(); 
+       
+        
        
         if($company == null)
         {
@@ -17,7 +24,12 @@ class CompanyController extends Controller
         }
 
         $customurl = url("/c/{$company->custom_url}");
-        return view('company', ['company' => $company, 'custom_url' => $customurl]);
+        return view('company', 
+        ['company' => $company, 
+        'custom_url' => $customurl,
+        'rating' => round($rating, 1),
+        'user_rating' => $user_rating,
+        'ratingcount' => $ratingcount,]);
     }
 
     public function overview()
@@ -86,5 +98,28 @@ class CompanyController extends Controller
         $company->color = $request->color;
         $company->save();
         return redirect('/c/'.$request->custom_url);
+    }
+
+    public function rate(Request $request)
+    {
+  
+        $validatedData = $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'id' => 'required'
+        ]);
+        $existingComment = UserComments::where('reviewer', auth()->id())
+            ->first();
+
+        if ($existingComment) {
+            $existingComment->delete();
+        }
+
+        $comment = new UserComments();
+        $comment->reviewer = auth()->id();
+        $comment->reviewee = $validatedData['id'];
+        $comment->review = $validatedData['rating'];
+        $comment->save();
+
+        return back();
     }
 }
