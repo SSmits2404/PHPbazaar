@@ -28,7 +28,7 @@
                                     {{__('Start Date')}}: {{ $rented->start_date}}
                                     <br>
                                     {{__('End Date')}}: {{ $rented->end_date}}
-                                    @if(now() < $rented->end_date && now() > $rented->start_date && $rented->available == true && $rented->picked_up == false)
+                                    @if(now() < $rented->end_date && now() > $rented->start_date && $rented->available == true && $rented->picked_up == false && $rented->advert->durability > 0)
                                         <br>
                                         <x-primary-button>
                                             <a href="{{ route('rented.pickUp', ['id' => $rented->id]) }}">{{ __('Pick up') }}</a>
@@ -38,9 +38,14 @@
                                         <x-primary-button>
                                             <a href="{{ route('return', ['id' => $rented->id]) }}">{{ __('Return') }}</a>
                                         </x-primary-button>
-                                        @elseif(now() < $rented->end_date && $rented->start_date < now() && $rented->available == false)
+                                    @elseif(now() < $rented->end_date && $rented->start_date < now() && $rented->available == false)
                                         <br>
                                         {{__('this item has been returned')}}
+                                    @elseif($rented->advert->durability == 0 && $rented->advert->durability != null)
+                                        <br>
+                                        {{__('this item is unfortunately broken')}}
+                                        <br>
+                                        {{__('please contact the owner, or wait till it is fixed')}}
                                         @endif
                                     </div>
                                 </div>

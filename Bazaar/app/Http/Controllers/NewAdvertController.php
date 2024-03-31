@@ -94,8 +94,10 @@ class NewAdvertController extends Controller
         if($request['advert_type'] == "rental") {
             $advert->advert_type = "rental";
             $advert->isrental = true;
-            $advert->durability = 100;
+            $advert->durability = $request['durability'];
+            $advert->base_durability = $request['durability'];
             $advert->wear = $request['wear_percentage_per_use'];
+
         }
 
         if ($request->hasFile('afbeelding')) {
@@ -409,13 +411,14 @@ public function ownRent(Request $request)
     
     public function return(Request $request)
     {
-        $rental = Rental::findOrFail($request->id);
+        $rental = Rental::find($request->id);
         return view('return', ['id' => $rental->id]);
     }
 public function returnItem(Request $request)
 {
-    ddd($request);
-    $rental = Rental::findOrFail($request->id);
+    
+    
+    $rental = Rental::find($request->id);
     if ($request->hasFile('afbeelding')) {
         $image = $request->file('afbeelding');
         $imageName = time() . '.' . $image->extension();
@@ -424,7 +427,19 @@ public function returnItem(Request $request)
     }
     $rental->picked_up = false;
     $rental->available = false;
-    $rental->save();    
+    $advert = Advert::find($rental->advert_id);
+    $advert->durability = $advert->durability - $advert->wear;
+    $advert->save();
+    $rental->save();  
+      
     return redirect()->route('rented');
     }   
+
+    public function repair($id)
+    {
+        $advert = Advert::find($id);
+        $advert->durability = $advert->base_durability;
+        $advert->save();
+        return redirect()->route('expiry');
+    }
 }

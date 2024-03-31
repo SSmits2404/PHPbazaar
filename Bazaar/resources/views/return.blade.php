@@ -11,6 +11,7 @@
                     <h1 class="font-bold text-x1"><b>{{__('Return')}}</b></h1>
                     
                     <form action="{{ route('rented.returnItem') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{$id}}"/>
                         @csrf
                         <div class="md:flex gap-8 justify-between">
                             <label class="block text-gray-700 text-xl font-bold mb-2" for="afbeelding">

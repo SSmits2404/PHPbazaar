@@ -61,6 +61,17 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                        </div>
+                        <br>
+                        <div class="mb-4">
+                            <label for="durability" class="sr-only">{{__('Durability')}}</label>
+                            <input type="number" name="durability" min=0 max=100 id="durability" placeholder="Durability" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-quart p-4 rounded-lg @error('durability') border-red-500 @enderror" value="{{ old('durability') }}"> {{__('durability')}}
+                            @error('wear_percentage_per_use')
+                                <div class="text-red-500 mt-2 text-sm">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         
                         @endif
 

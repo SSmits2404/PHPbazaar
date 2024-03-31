@@ -47,6 +47,7 @@ Route::get('/expiry', [NewAdvertController::class, 'expiry'])->name('expiry');
 Route::get('/pickUp', [NewAdvertController::class, 'pickUp'])->name('rented.pickUp');
 Route::get('/return', [NewAdvertController::class, 'return'])->name('return');
 Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem');
+Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair');
 
 
 
