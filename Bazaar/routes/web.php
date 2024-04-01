@@ -4,6 +4,7 @@ use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\NewAdvertController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContractController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,8 @@ Route::get('/return', [NewAdvertController::class, 'return'])->name('return');
 Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem');
 Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair');
 Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate');
+Route::get('/contract-upload', [ContractController::class, 'getcontractupload'])->name('contract.upload');
+Route::post('/contract-store', [ContractController::class, 'storecontract'])->name('contract.store');
 
 
 Route::middleware('auth')->group(function () {
