@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 // falback route
-Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
+
 
 Route::get('/dashboard', [NewAdvertController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/adverts/{advert}/bid', [NewAdvertController::class, 'bid'])->name('adverts.bid')->middleware(['auth', 'verified']);
@@ -46,6 +46,7 @@ Route::get('/return', [NewAdvertController::class, 'return'])->name('return')->m
 Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem')->middleware(['auth', 'verified']);
 Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair')->middleware(['auth', 'verified']);
 
+Route::get('/c', [CompanyController::class, 'overview'])->middleware(['auth', 'verified']);
 Route::get('/c/{company}', [CompanyController::class, 'view'])->name('company')->middleware(['auth', 'verified']);
 Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate')->middleware(['auth', 'verified']);
 Route::get('/createcompany', [CompanyController::class, 'create'])->name('createcompany')->middleware(['auth', 'verified']);
