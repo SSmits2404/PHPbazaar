@@ -1,23 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Buy History') }}
-            @if(Auth::check() && Auth::user()->role == 'admin')
-                <a href="/" class="bg-red-500 text-white px-4 py-3 rounded font-medium">{{ __('admin') }}</a>
-            @endif
-            @if(Auth::check())
-                @php
-                $advertTypes = ['sale' => 'new sale', 'auction' => 'new auction', 'rental' => 'new rental'];
-                @endphp
-
-                @foreach($advertTypes as $type => $label)
-                    @if(Auth::user()->CanMakeAdvert($type))
-                        <a href="{{ route('adverts.create', ['type' => $type]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __($label) }}</a>
-                    @endif
-                @endforeach
-            @endif
-
-            
+            {{ __('Buy History') }}            
         </h2>
     </x-slot>
 
