@@ -87,4 +87,13 @@ class CompanyController extends Controller
         $company->save();
         return redirect('/c/'.$request->custom_url);
     }
+
+
+    
+    public function api(Company $company)
+    {
+        ddd($company);
+        return $company->toArray();
+    
+    }
 }

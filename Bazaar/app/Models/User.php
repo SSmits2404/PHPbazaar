@@ -48,4 +48,12 @@ class User extends Authenticatable
     {
         return true;
     }
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'role' => $this->role,
+        ];
+    }
 }

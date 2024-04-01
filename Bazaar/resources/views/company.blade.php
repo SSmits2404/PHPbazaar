@@ -7,7 +7,7 @@
         <br>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-6" style="background-color: {{ $company->color }}">
                     @if($company->qr_code_component)
                     <x-qr-code></x-qr-code>
                     @endif
@@ -17,8 +17,6 @@
                     @if($company->contact_component)
                     <x-contact></x-contact>
                     @endif
-
-                    <div style="background-color: {{ $company->color }}; height: 100px"></div>
                 </div>
             </div>
         </div>
