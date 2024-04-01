@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Rental;
 use App\Models\Company;
 use App\Models\connectedads;
+use Illuminate\Validation\Rule;
 
 class NewAdvertController extends Controller
 {
@@ -432,8 +433,7 @@ public function ownRent(Request $request)
     }
 public function returnItem(Request $request)
 {
-    
-    
+   
     $rental = Rental::find($request->id);
     if ($request->hasFile('afbeelding')) {
         $image = $request->file('afbeelding');
@@ -457,5 +457,14 @@ public function returnItem(Request $request)
         $advert->durability = $advert->base_durability;
         $advert->save();
         return redirect()->route('expiry');
+    }
+    public function addedadd(Request $request)
+    {   
+
+        $validatedData = $request->validate([
+            'added' => 'required'|'numeric',      
+        ]);
+
+        return redirect()->route('adverts');
     }
 }

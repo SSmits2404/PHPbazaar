@@ -49,6 +49,7 @@ Route::get('/return', [NewAdvertController::class, 'return'])->name('return');
 Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem');
 Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair');
 Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate');
+Route::post('/advert', [NewAdvertController::class, 'addedadd'])->name('advert.add');
 
 
 Route::middleware('auth')->group(function () {
