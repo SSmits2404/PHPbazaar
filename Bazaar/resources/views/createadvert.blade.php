@@ -88,7 +88,7 @@
                 </div>
                 <br>
                         
-                <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Create Advert')}}</button>
+                <button type="submit" id="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Create Advert')}}</button>
             </form>
         </div>
     </div>

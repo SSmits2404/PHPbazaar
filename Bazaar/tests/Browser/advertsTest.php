@@ -20,16 +20,24 @@ class advertsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
 
-            $browser->loginAs(User::find(1))
+            // Create a new user on the db to use 
+            $user = new User();
+            $user->name = 'goeiagjeogijwogwij';
+            $user->email = 'a@b.com';
+            $user->password = bcrypt('password');
+            $user->role = 'advertiser';
+            $user->save();
+
+            $browser->loginAs(User::where('name', 'goeiagjeogijwogwij')->first())
                 ->visit('/')
                 ->visit('/adverts')
-                ->visit('/adverts/create')
+                ->visit('/adverts/create?advert_type=sale')
                 ->pause(1000)
                 ->type('title', 'iodjwfoaifjwofjiaoefjwaoefijeawoifjwa')
                 ->pause(1000)
                 ->type('advertisement_text', 'This is a new advert')
                 ->pause(1000)
-                ->type('price', '8.00')	
+                ->type('#price', '8.00')	
                 ->pause(1000)
                 ->keys('#expiry_moment',
                 ['{arrow_up}'],
@@ -49,9 +57,7 @@ class advertsTest extends DuskTestCase
                 ['tab'] // Move out of the datetime field, potentially necessary to trigger change events
                 )
                 ->pause(1000)
-                ->radio('#advert_type', 'Insta Sell')
-                ->pause(1000)
-                ->press('Create Advert')
+                ->press('#submit')
                 ->assertPathIs('/adverts');
             // Clean up after the tests
             
