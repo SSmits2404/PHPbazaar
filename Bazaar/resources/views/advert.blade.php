@@ -158,10 +158,53 @@
                 </div>
             </div>
         </div>
+        </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    
+                    <form action="{{ route('advert.add') }}" method="post">
+                        @csrf
+                            <input type="hidden" name="advertidentifier" id="advertidentifier" value="{{ $advert->id }}">
+                            <input type="number" name="added" id="added" placeholder="added" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('added') border-red-500 @enderror" value="{{ old('added') }}">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Add')}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         
     </div>
-</div>
+@if(isset($connected))
+     <div class="grid md:grid-cols-2 gap-6">
+                @foreach ($connected as $advert)
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
 
+                        <div class="p-6 dark:text-gray-100 flex flex-col">
+                            <a href="{{ route('adverts.show', $advert->id) }}" class="flex">
+                                <div class="flex">
+                                    <div class="ml-auto pr-25">
+                                        <h1 class="font-bold text-x1"><b>{{ $advert->advert->title }}</b></h1>
+                                        <p>{{ $advert->advert->advertisement_text }}</p>
+                                        @if(isset($advert->advert->price))
+                                            <p>{{__('price')}}: {{ $advert->advert->price }}</p>
+                                        @endif
+                                        <p>{{__('Type')}} : {{__($advert->advert->advert_type) }}</p>
+                                    </div>
+                                </div>
+                                @if($advert->afbeelding)
+                                <div> <!-- Add pl-4 class for left padding -->
+                                    <img src="{{ asset('images/' . $advert->advert->afbeelding) }}" alt="Existing Image" style="width:175px; height:150px;">
+                                </div>
+                                @else
+                                    <p>{{__('No image available')}}</p>
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+@endif
+</div>
 </x-app-layout>
 @if(isset($advert->expires_at) && $advert->expires_at > now())
 <script>
