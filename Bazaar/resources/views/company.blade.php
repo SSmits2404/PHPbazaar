@@ -3,6 +3,11 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ $company->custom_url }}
             </h2>
+            <br>
+            <h3>
+            <a href="{{ route('contract.unapproved', $company)}} class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ $company->owner_id }}</a>
+
+            </h3>
         </x-slot>
         <br>
         <a href="{{ route('contract.upload', ['subject' => 1]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ $company->owner_id }}</a>

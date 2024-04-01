@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use App\Models\Contract;
+use App\Models\User;
 
 use function Laravel\Prompts\error;
 
 class ContractController extends Controller
 {
+
+
     public function generatePDF(Request $request)
     {
         $clientName = $request->input('clientName', 'John Doe'); // Default to 'John Doe' if not provided
@@ -28,7 +31,7 @@ class ContractController extends Controller
         $dompdf->render();
 
         // Stream the generated PDF back to the browser
-        return $dompdf->stream("service_agreement.pdf", ["Attachment" => false]);
+        return $dompdf->stream("service_agreement.pdf", ["Attachment" => true]);
     }
 
     public function storecontract(Request $request)
@@ -54,9 +57,12 @@ class ContractController extends Controller
         return view('contractupload', ['subject' => $request['subject']]);
     }
 
-    public function getunapprovedpdf()
+    
+    public function getunapprovedpdf($company)
     {
-        $contracts = Contract::where('approved', false)->where('subject_user_id', auth()->id())->get();
-        return view('unapprovedpdf', ['contracts' => $contracts]);
+        ddd($company);
+        $contracts = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 
+        $pathToFile = storage_path('app/' . $contracts->pdf_file);
+        return response()->download($pathToFile);
     }
 }

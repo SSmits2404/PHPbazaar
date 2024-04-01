@@ -10,6 +10,7 @@ class CompanyController extends Controller
 {
     public function view(string $company)
     {
+        
         $company = Company::where('custom_url', $company)->first();
         $id = $company->id;
         $rating= UserComments::where('reviewee', $id)->get()->average('review');
@@ -25,7 +26,8 @@ class CompanyController extends Controller
 
         $customurl = url("/c/{$company->custom_url}");
         return view('company', 
-        ['company' => $company, 
+        ['company' => $company,
+        'id' => $id,
         'custom_url' => $customurl,
         'rating' => round($rating, 1),
         'user_rating' => $user_rating,
