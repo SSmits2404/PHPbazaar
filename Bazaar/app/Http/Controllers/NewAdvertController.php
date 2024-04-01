@@ -10,6 +10,7 @@ use App\Models\AdvertComments;
 use App\Models\User;
 use App\Models\Rental;
 use App\Models\Company;
+use App\Models\connectedads;
 
 class NewAdvertController extends Controller
 {
@@ -114,7 +115,6 @@ class NewAdvertController extends Controller
 
     public function rent($id, Request $request)
     {
-        //ddd($request);
         $advert = Advert::findOrFail($id);
         if($advert->advert_type != "rental")
         {
@@ -145,7 +145,6 @@ class NewAdvertController extends Controller
         if ($existingBookings) {
             return back()->withErrors(['rent_start' => 'There is an existing booking that overlaps with this new booking.']);
         }
-        //ddd($request);
         $rental = new Rental();
         $rental->advert_id = $id;
         $rental->renter_id = auth()->id();
@@ -181,6 +180,10 @@ class NewAdvertController extends Controller
         $ratingcount = AdvertComments::where('advert', $id)->get()->count();
         $user_rating = AdvertComments::where('advert', $id)->where('reviewer', auth()->id())->get('review')->first();
         $isFavorite = Favorites::where('advert', $id)->where('user', auth()->id())->exists();
+        $connected = connectedads::where('subject', $id)->get();
+        foreach($connected as $connect) {
+            $connect->advert = Advert::find($connect->connected);
+        }
         if($user_rating == null) {
             $user_rating = new AdvertComments();
             $user_rating->review = 0;
@@ -203,7 +206,8 @@ class NewAdvertController extends Controller
             'ratingcount' => $ratingcount,
             'isFavorite' => $isFavorite,
             'QR' => $QR,
-            'companyCustomUrl' => $companyCustomUrl
+            'companyCustomUrl' => $companyCustomUrl,
+            'connected' => $connected
 
         ]);
     }
