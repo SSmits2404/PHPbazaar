@@ -61,22 +61,8 @@ class DatabaseSeeder extends Seeder
         DB::table('adverts')->insert([
             [
                 'id' => 1,
-                'user_id' => 1,
-                'price' => 8.00,
-                'title' => 'broodje',
-                'advertisement_text' => 'dit broodje is lekker',
-                'expires_at' => '2025-03-02 00:00:00',
-                'advert_type' => 'sale'
-            ],
-            [
-                'id' => 2,
-                'user_id' => 2,
-                'price' => 12.00,
-                'title' => 'lekkerder broodje',
-                'advertisement_text' => 'deze broodje grote lekker',
-                'expires_at' => '2025-03-02 00:00:00',
-                'advert_type' => 'sale'
-            ],
+                'user_id' => 1,'price' => 8.00,'title' => 'broodje', 'advertisement_text' => 'dit broodje is lekker','expires_at' => '2025-03-02 00:00:00','advert_type' => 'sale'],
+            ['id' => 2, 'user_id' => 2, 'price' => 12.00, 'title' => 'lekkerder broodje', 'advertisement_text' => 'deze broodje grote lekker', 'expires_at' => '2025-03-02 00:00:00','advert_type' => 'sale'],
             ['id' => 3, 'user_id' => 1, 'price' => 14.00, 'title' => 'carpacio broodje','advertisement_text' => 'deze broodje grote lekker met vlees', 'expires_at' => '2025-03-02 00:00:00', 'advert_type' => 'sale'],
             ['id' => 4, 'user_id' => 3, 'price' => 10.00, 'title' => 'vegan broodje', 'advertisement_text' => '100% plantaardig broodje', 'expires_at' => '2025-04-01 00:00:00', 'advert_type' => 'sale'],
             ['id' => 5, 'user_id' => 1, 'price' => 9.50, 'title' => 'kaas broodje', 'advertisement_text' => 'broodje met oude kaas', 'expires_at' => '2025-05-05 00:00:00', 'advert_type' => 'sale'],
