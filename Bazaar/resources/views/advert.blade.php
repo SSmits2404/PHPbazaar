@@ -164,7 +164,7 @@
                     
                     <form action="{{ route('advert.add') }}" method="post">
                         @csrf
-                            <input type="hidden" name="advertidnetifier" id="advertidentifier" value="{{ $advert->id }}">
+                            <input type="hidden" name="advertidentifier" id="advertidentifier" value="{{ $advert->id }}">
                             <input type="number" name="added" id="added" placeholder="added" class="dark:bg-gray-900 dark:text-gray-300 bg-gray-100 border-2 w-full p-4 rounded-lg @error('added') border-red-500 @enderror" value="{{ old('added') }}">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">{{__('Add')}}</button>
                     </form>

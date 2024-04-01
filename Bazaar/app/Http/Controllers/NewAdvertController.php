@@ -459,8 +459,8 @@ public function returnItem(Request $request)
     {   
 
         $validatedData = $request->validate([
-            'added' => 'required'|'numeric',
-            'advertidentifier' => 'required'    
+            'added' => 'required','numeric',
+            'advertidentifier' => 'required'
         ]);
         if(!Advert::find($request['advertidentifier'])->exists()){
             return back()->withErrors(['added' => 'This advert does not exist.']);
@@ -471,6 +471,7 @@ public function returnItem(Request $request)
         $connected->connected = $request['added'];
         $connected->save();
 
-        return redirect()->route('adverts');
+        return redirect()->route('adverts.show', $request['advertidentifier']);
     }
 }
+ 
