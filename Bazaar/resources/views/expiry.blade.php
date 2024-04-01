@@ -40,6 +40,8 @@
                 <div class="grid md:grid-cols-2 gap-6">          
                     @foreach($rentalExpiry as $expiry)
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg h-200">
+                    <a href="{{ route('adverts.show', $expiry->id) }}" class="flex">
+
                         <div class="p-6 dark:text-gray-100 flex flex-col">
                             <div class="flex">
                                 <div class="ml-auto pr-25">
@@ -57,6 +59,7 @@
                                     @endif
                                 </div>
                             </div>
+                        </a>
                         </div>
                     @endforeach
                 </div>
