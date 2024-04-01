@@ -77,8 +77,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('rentals')->insert([
             ['id' => 1, 'advert_id' => 6, 'renter_id' => 1, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> true],
-            ['id' => 2, 'advert_id' => 5, 'renter_id' => 2, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => true, 'available'=> true],
-            ['id' => 3, 'advert_id' => 4, 'renter_id' => 3, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> false],
+            ['id' => 2, 'advert_id' => 5, 'renter_id' => 1, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => true, 'available'=> true],
+            ['id' => 3, 'advert_id' => 4, 'renter_id' => 1, 'start_date' => '2024-03-02 00:00:00', 'end_date' => '2025-03-09 00:00:00', 'picked_up' => false, 'available'=> false],
   
         ]);
         DB::table('companies')->insert([
