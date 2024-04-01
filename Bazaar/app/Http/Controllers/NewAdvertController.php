@@ -64,7 +64,6 @@ class NewAdvertController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validatedData = $request->validate([
             'title' => 'required',
             'advertisement_text' => 'required',
@@ -80,8 +79,6 @@ class NewAdvertController extends Controller
         $advert = new Advert();
         $advert->user_id = auth()->id();
         $advert->advert_type = $request['advert_type'];
-
-
         $advert->title = $request['title'];
         $advert->advertisement_text = $request['advertisement_text'];
         $advert->price = $request['price'];
@@ -93,7 +90,6 @@ class NewAdvertController extends Controller
         }
         
         if($request['advert_type'] == "rental") {
-            $advert->advert_type = "rental";
             $advert->isrental = true;
             $advert->durability = $request['durability'];
             $advert->base_durability = $request['durability'];
@@ -107,6 +103,7 @@ class NewAdvertController extends Controller
             $image->move(public_path('images'), $imageName);
             $advert->afbeelding = $imageName;
         }
+        $advert->advert_type = $request['advert_type'];
         $advert->save();
 
         return redirect()->route('adverts.index');
