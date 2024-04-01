@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('ownRent')" :active="request()->routeIs('ownRent')">
                         {{ __('Agendas') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('adverts.bought')" :active="request()->routeIs('adverts.bought')">
+                        {{ __('Buy history') }}
+                    </x-nav-link>
 
 
                 </div>

@@ -19,6 +19,7 @@
                                 <div class="flex">
                                     <div class="ml-auto pr-25">
                                         <h1 class="font-bold text-x1"><b>{{ $company->id }}</b></h1>
+                                        <h1 class="font-bold text-x1"><b>{{ $company->custom_url }}</b></h1>
                                     </div>
                                 </div>
                             </a>

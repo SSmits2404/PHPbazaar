@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserComments;
 use App\Models\Company;
+use App\Models\Contract;
 
 class CompanyController extends Controller
 {
     public function view(string $company)
     {
+        
         $company = Company::where('custom_url', $company)->first();
         $id = $company->id;
         $rating= UserComments::where('reviewee', $id)->get()->average('review');
         $ratingcount = UserComments::where('reviewee', $id)->get()->count();
         $user_rating = UserComments::where('reviewee', $id)->where('reviewer', auth()->id())->get('review')->first(); 
-       
+       $hasunaprovedcontract = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 
         
        
         if($company == null)
@@ -25,11 +27,15 @@ class CompanyController extends Controller
 
         $customurl = url("/c/{$company->custom_url}");
         return view('company', 
-        ['company' => $company, 
+        ['company' => $company,
+        'id' => $id,
         'custom_url' => $customurl,
         'rating' => round($rating, 1),
         'user_rating' => $user_rating,
-        'ratingcount' => $ratingcount,]);
+        'ratingcount' => $ratingcount,
+        'hasunaprovedcontract' => $hasunaprovedcontract
+    
+    ]);
     }
 
     public function overview()

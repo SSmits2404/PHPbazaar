@@ -41,7 +41,7 @@
                                     @elseif(now() < $rented->end_date && $rented->start_date < now() && $rented->available == false)
                                         <br>
                                         {{__('this item has been returned')}}
-                                    @elseif($rented->advert->durability == 0 && $rented->advert->durability != null)
+                                    @elseif($rented->advert->durability == 0)
                                         <br>
                                         {{__('this item is unfortunately broken')}}
                                         <br>
