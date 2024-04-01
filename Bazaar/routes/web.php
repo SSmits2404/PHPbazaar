@@ -38,21 +38,21 @@ Route::post('/adverts/{advert}/buy', [NewAdvertController::class, 'buy'])->name(
 Route::post('/adverts/bought', [NewAdvertController::class, 'bought'])->name('adverts.bought')->middleware(['auth', 'verified']);
 Route::post('advert/{advert}/rent', [NewAdvertController::class, 'rent'])->name('adverts.rent')->middleware(['auth', 'verified']);
 Route::get('/u/buy-history', [NewAdvertController::class, 'showbought'])->name('adverts.bought')->middleware(['auth', 'verified']);
-Route::get('/ownRent', [NewAdvertController::class, 'ownRent'])->name('ownRent');
-Route::get('/rented', [NewAdvertController::class, 'rented'])->name('rented');
-Route::get('/expiry', [NewAdvertController::class, 'expiry'])->name('expiry');
-Route::get('/pickUp', [NewAdvertController::class, 'pickUp'])->name('rented.pickUp');
-Route::get('/return', [NewAdvertController::class, 'return'])->name('return');
-Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem');
-Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair');
+Route::get('/ownRent', [NewAdvertController::class, 'ownRent'])->name('ownRent')->middleware(['auth', 'verified']);
+Route::get('/rented', [NewAdvertController::class, 'rented'])->name('rented')->middleware(['auth', 'verified']);
+Route::get('/expiry', [NewAdvertController::class, 'expiry'])->name('expiry')->middleware(['auth', 'verified']);
+Route::get('/pickUp', [NewAdvertController::class, 'pickUp'])->name('rented.pickUp')->middleware(['auth', 'verified']);
+Route::get('/return', [NewAdvertController::class, 'return'])->name('return')->middleware(['auth', 'verified']);
+Route::post('/return', [NewAdvertController::class, 'returnItem'])->name('rented.returnItem')->middleware(['auth', 'verified']);
+Route::get('/repair/{advert}', [NewAdvertController::class, 'repair'])->name('expiry.repair')->middleware(['auth', 'verified']);
 
 Route::get('/c/{company}', [CompanyController::class, 'view'])->name('company')->middleware(['auth', 'verified']);
-Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate');
+Route::post('/company/rate', [CompanyController::class, 'rate'])->name('company.rate')->middleware(['auth', 'verified']);
 Route::get('/createcompany', [CompanyController::class, 'create'])->name('createcompany')->middleware(['auth', 'verified']);
 Route::post('/createcompany', [CompanyController::class, 'store'])->name('createcompany.store')->middleware(['auth', 'verified']);
 
-Route::get('/contract-upload', [ContractController::class, 'getcontractupload'])->name('contract.upload');
-Route::post('/contract-store', [ContractController::class, 'storecontract'])->name('contract.store');
+Route::get('/contract-upload', [ContractController::class, 'getcontractupload'])->name('contract.upload')->middleware(['auth', 'verified']);
+Route::post('/contract-store', [ContractController::class, 'storecontract'])->name('contract.store')->middleware(['auth', 'verified']);
 Route::get('/generate-contract-pdf', [ContractController::class, 'generatePDF'])->name('generate-contract-pdf')->middleware(['auth', 'verified']);
 Route::get('/generate-unnaproved-pdf', [ContractController::class, 'getunapprovedpdf'])->name('contract.unapproved')->middleware(['auth', 'verified']);
 Route::get('/contract-approve', [ContractController::class, 'approvepdf'])->name('contract.approve')->middleware(['auth', 'verified']);
