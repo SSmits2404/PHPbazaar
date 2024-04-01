@@ -11,8 +11,6 @@ use function Laravel\Prompts\error;
 
 class ContractController extends Controller
 {
-
-
     public function generatePDF(Request $request)
     {
         $clientName = $request->input('clientName', 'John Doe'); // Default to 'John Doe' if not provided
@@ -56,8 +54,6 @@ class ContractController extends Controller
         }
         return view('contractupload', ['subject' => $request['subject']]);
     }
-
-    
     public function getunapprovedpdf(Request $request)
     {
         $contracts = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 

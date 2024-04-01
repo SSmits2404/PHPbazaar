@@ -3,8 +3,6 @@
 <?php
 $url = str_replace('http://127.0.0.1:8000/c/', '', Request::url());
 $results = DB::select('select * from companies where custom_url = ?', [$url]);
-
-
 ?>
 {{$results[0]->intro}}
 </div>
