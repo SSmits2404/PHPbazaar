@@ -46,7 +46,7 @@ class ContractController extends Controller
         $contract->subject_user_id = $request['subject'];
         $contract->save();
 
-        return redirect()->route('dashboard');
+        return redirect('/');
     }
 
     public function getcontractupload(Request $request)
@@ -58,11 +58,18 @@ class ContractController extends Controller
     }
 
     
-    public function getunapprovedpdf($company)
+    public function getunapprovedpdf(Request $request)
     {
-        ddd($company);
         $contracts = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 
         $pathToFile = storage_path('app/' . $contracts->pdf_file);
         return response()->download($pathToFile);
+    }
+
+    public function approvepdf(Request $request)
+    {
+        $contract = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 
+        $contract->approved = true;
+        $contract->save();
+        return redirect('/');
     }
 }

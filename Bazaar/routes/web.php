@@ -58,6 +58,7 @@ Route::get('/contract-upload', [ContractController::class, 'getcontractupload'])
 Route::post('/contract-store', [ContractController::class, 'storecontract'])->name('contract.store');
 Route::get('/generate-contract-pdf', [ContractController::class, 'generatePDF'])->name('generate-contract-pdf')->middleware(['auth', 'verified']);
 Route::get('/generate-unnaproved-pdf', [ContractController::class, 'getunapprovedpdf'])->name('contract.unapproved')->middleware(['auth', 'verified']);
+Route::get('/contract-approve', [ContractController::class, 'approvepdf'])->name('contract.approve')->middleware(['auth', 'verified']);
 
 
 

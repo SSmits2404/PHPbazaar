@@ -5,12 +5,18 @@
             </h2>
             <br>
             <h3>
-            <a href="{{ route('contract.unapproved', $company)}} class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ $company->owner_id }}</a>
-
+            @if($company->owner_id == auth()->user()->id && $hasunaprovedcontract)
+            <a href="{{ route('contract.unapproved', ['subject' => $company])}} class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __('download contract') }}</a>
+            @endif
             </h3>
         </x-slot>
         <br>
-        <a href="{{ route('contract.upload', ['subject' => 1]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ $company->owner_id }}</a>
+        @if(Auth::user()->role == "admin")
+        <a href="{{ route('contract.upload', ['subject' => 1]) }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{ __("Upload new contract") }}</a>
+        @endif
+        @if($company->owner_id == auth()->user()->id && $hasunaprovedcontract)
+            <a href="{{ route('contract.approve') }}" class="bg-green-500 text-white px-4 py-3 rounded font-medium">{{__('approve contract')}}</a>
+        @endif
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-6">
