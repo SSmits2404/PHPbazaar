@@ -55,13 +55,7 @@ class NewAdvertController extends Controller
         return view('createadvert',[ 'type' => $type]);
     }
 
-    public function bought()
-    {
-       
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -229,17 +223,6 @@ class NewAdvertController extends Controller
         return back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        // test
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         
@@ -299,19 +282,6 @@ class NewAdvertController extends Controller
     public function isFavorite(string $id)
     {
          return $this->favorites()->where('advert', $id)->where('user', auth()->id())->exists();
-    }
-                        
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-            $advert = Advert::findOrFail($id);
-            if(auth()->id() === $advert->user_id) {
-                $advert->delete();
-            }
-            return redirect()->route('adverts.index');
     }
 
     public function showFavorites()

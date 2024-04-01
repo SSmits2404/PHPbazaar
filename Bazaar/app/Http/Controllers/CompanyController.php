@@ -18,8 +18,7 @@ class CompanyController extends Controller
         $ratingcount = UserComments::where('reviewee', $id)->get()->count();
         $user_rating = UserComments::where('reviewee', $id)->where('reviewer', auth()->id())->get('review')->first(); 
        $hasunaprovedcontract = Contract::where('approved', false)->where('subject_user_id', auth()->id())->orderBy('created_at', 'desc')->first(); 
-        
-       
+           
         if($company == null)
         {
             return redirect('/');
@@ -58,7 +57,6 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
 
-
         if($request['api_enabled'] == 'on'){
             $request['api_enabled'] = 1;
         } else {
@@ -86,8 +84,7 @@ class CompanyController extends Controller
         if(Company::where('owner_id', auth()->id())->exists()){
             return back()->withErrors(['error' => 'already have a company']);
         }
-        
-        
+               
         $company = new Company();
         $company->owner_id = auth()->id();
         $company->custom_url = $request->custom_url;
