@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
 
         // Then insert adverts
         DB::table('adverts')->insert([
+
             ['id' => 1,'user_id' => 4,'price' => 8.00,'title' => 'broodje','advertisement_text' => 'dit broodje is lekker','expires_at' => '2025-03-02 00:00:00','advert_type' => 'sale'],
             ['id' => 2,'user_id' => 4,'price' => 12.00,'title' => 'lekkerder broodje','advertisement_text' => 'deze broodje grote lekker','expires_at' => '2025-03-02 00:00:00','advert_type' => 'sale'],
             ['id' => 3, 'user_id' => 4, 'price' => 14.00, 'title' => 'carpacio broodje','advertisement_text' => 'deze broodje grote lekker met vlees', 'expires_at' => '2025-03-02 00:00:00', 'advert_type' => 'sale'],
@@ -61,6 +62,7 @@ class DatabaseSeeder extends Seeder
             ['id' => 7, 'user_id' => 4, 'price' => 11.00, 'title' => 'italiaans broodje', 'advertisement_text' => 'italiaanse kruiden en mozzarella', 'expires_at' => '2025-07-20 00:00:00','bid' => 0.0, 'advert_type' => 'auction'],
             ['id' => 8, 'user_id' => 4, 'price' => 13.00, 'title' => 'kruidig broodje', 'advertisement_text' => 'met pikante kip en speciale saus', 'expires_at' => '2025-08-15 00:00:00','bid' => 0.0, 'advert_type' => 'auction'],
             ['id' => 9, 'user_id' => 4, 'price' => 7.50, 'title' => 'eenvoudig broodje', 'advertisement_text' => 'simpel maar heerlijk broodje ham', 'expires_at' => '2025-09-05 00:00:00','bid' => 0.0, 'advert_type' => 'auction'],
+
             
             
 

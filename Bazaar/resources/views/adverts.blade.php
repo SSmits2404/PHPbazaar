@@ -2,9 +2,6 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Adverts') }}
-            @if(Auth::check() && Auth::user()->role == 'admin')
-                <a href="/" class="bg-red-500 text-white px-4 py-3 rounded font-medium">{{ __('admin') }}</a>
-            @endif
             @if(Auth::check())
 
                 @php
